@@ -4,30 +4,37 @@ import SwiftUI
 struct NoSleepMenu: View {
     let model: MenuModel
 
+    @State private var showingSettings = false
+
     var body: some View {
         let locale = model.language.resolved().locale
 
         VStack(alignment: .leading, spacing: 12) {
-            ModeControls(
-                enabled: Binding(get: { model.enabled }, set: model.setEnabled),
-                status: model.status,
-                perform: model.perform
-            )
+            if showingSettings {
+                MenuSettings(model: model) { showingSettings = false }
+            } else {
+                ModeControls(
+                    enabled: Binding(get: { model.enabled }, set: model.setEnabled),
+                    status: model.status,
+                    perform: model.perform
+                )
 
-            Divider()
+                Divider()
 
-            IdleDurationField(duration: IdleDuration(count: model.savedCount, unit: model.savedUnit)) { value in
-                model.saveDuration(value.count, unit: value.unit)
+                IdleDurationField(duration: IdleDuration(count: model.savedCount, unit: model.savedUnit)) { value in
+                    model.saveDuration(value.count, unit: value.unit)
+                }
+
+                Divider()
+
+                MenuFooter { showingSettings = true }
             }
-
-            Divider()
-
-            MenuFooter(language: Binding(get: { model.language }, set: model.setLanguage))
         }
         .padding(14)
         .frame(width: 340)
         .environment(\.locale, locale)
         .environment(\.layoutDirection, locale.language.characterDirection == .rightToLeft ? .rightToLeft : .leftToRight)
+        .onDisappear { showingSettings = false }
     }
 }
 
@@ -79,7 +86,7 @@ private struct ModeControls: View {
 private struct MenuFooter: View {
     private static let octoiiURL = URL(string: "https://octoii.com")!
 
-    @Binding var language: MenuLanguage
+    let showSettings: () -> Void
 
     var body: some View {
         HStack(alignment: .firstTextBaseline, spacing: 8) {
@@ -96,30 +103,17 @@ private struct MenuFooter: View {
             Spacer(minLength: 8)
 
             HStack(spacing: 10) {
-                Menu {
-                    Picker("Language", selection: $language) {
-                        Text("Follow System").tag(MenuLanguage.system)
-
-                        ForEach(MenuLanguage.supported) { option in
-                            Text(verbatim: option.nativeName).tag(option)
-                        }
-                    }
-                    .pickerStyle(.inline)
-                } label: {
-                    Label("Language", systemImage: "globe")
-                        .font(.caption)
+                Button(action: showSettings) {
+                    Label("Settings", systemImage: "gearshape")
                 }
-                .menuStyle(.borderlessButton)
-                .controlSize(.small)
-                .foregroundStyle(.secondary)
-                .fixedSize()
-                .help("Language")
+                .help("Settings")
 
                 Button("Quit NoSleep") { NSApplication.shared.terminate(nil) }
-                    .buttonStyle(.plain)
-                    .foregroundStyle(.secondary)
             }
             .font(.caption)
+            .buttonStyle(.borderless)
+            .controlSize(.small)
+            .foregroundStyle(.secondary)
         }
     }
 }

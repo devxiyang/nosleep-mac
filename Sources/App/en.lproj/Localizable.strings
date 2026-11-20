@@ -32,3 +32,10 @@
 "Cancel" = "Cancel";
 "Language" = "Language";
 "Follow System" = "Follow System";
+"Settings" = "Settings";
+"Back" = "Back";
+"Launch at Login" = "Launch at Login";
+"Approve NoSleep in Login Items." = "Approve NoSleep in Login Items.";
+"Open Login Items" = "Open Login Items";
+"The login item is unavailable." = "The login item is unavailable.";
+"Could not update the login item." = "Could not update the login item.";

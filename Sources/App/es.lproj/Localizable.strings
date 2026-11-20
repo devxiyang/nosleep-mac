@@ -32,3 +32,10 @@
 "Cancel" = "Cancelar";
 "Language" = "Idioma";
 "Follow System" = "Seguir el idioma del sistema";
+"Settings" = "Ajustes";
+"Back" = "Atrás";
+"Launch at Login" = "Abrir al iniciar sesión";
+"Approve NoSleep in Login Items." = "Autoriza NoSleep en los ítems de inicio.";
+"Open Login Items" = "Abrir ítems de inicio";
+"The login item is unavailable." = "El ítem de inicio no está disponible.";
+"Could not update the login item." = "No se pudo actualizar el ítem de inicio.";

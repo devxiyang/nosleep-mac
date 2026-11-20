@@ -32,3 +32,10 @@
 "Cancel" = "キャンセル";
 "Language" = "言語";
 "Follow System" = "システムに従う";
+"Settings" = "設定";
+"Back" = "戻る";
+"Launch at Login" = "ログイン時に起動";
+"Approve NoSleep in Login Items." = "「ログイン項目」で NoSleep を許可してください。";
+"Open Login Items" = "ログイン項目を開く";
+"The login item is unavailable." = "ログイン項目を利用できません。";
+"Could not update the login item." = "ログイン項目を更新できませんでした。";

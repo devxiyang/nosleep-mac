@@ -32,3 +32,10 @@
 "Cancel" = "취소";
 "Language" = "언어";
 "Follow System" = "시스템 설정 따르기";
+"Settings" = "설정";
+"Back" = "뒤로";
+"Launch at Login" = "로그인 시 실행";
+"Approve NoSleep in Login Items." = "‘로그인 항목’에서 NoSleep을 허용해 주세요.";
+"Open Login Items" = "로그인 항목 열기";
+"The login item is unavailable." = "로그인 항목을 사용할 수 없습니다.";
+"Could not update the login item." = "로그인 항목을 업데이트할 수 없습니다.";

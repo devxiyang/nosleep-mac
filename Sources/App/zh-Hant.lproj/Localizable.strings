@@ -32,3 +32,10 @@
 "Cancel" = "取消";
 "Language" = "語言";
 "Follow System" = "跟隨系統";
+"Settings" = "設定";
+"Back" = "返回";
+"Launch at Login" = "登入時啟動";
+"Approve NoSleep in Login Items." = "請在「登入項目」中核准 NoSleep。";
+"Open Login Items" = "打開登入項目";
+"The login item is unavailable." = "無法使用登入項目。";
+"Could not update the login item." = "無法更新登入項目。";

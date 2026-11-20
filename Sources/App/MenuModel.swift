@@ -72,9 +72,12 @@ final class MenuModel {
     private(set) var savedCount: Int
     private(set) var savedUnit: DurationUnit
     private(set) var language: MenuLanguage
+    private(set) var loginItemState: LoginItemRegistration.State = .off
+    private(set) var loginItemUpdateFailed = false
 
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private let helper = SMAppService.daemon(plistName: ServiceIdentity.daemonPlist)
+    @ObservationIgnored private let loginItem = SMAppService.mainApp
     @ObservationIgnored private let client = PowerClient()
     @ObservationIgnored private let log = Logger(subsystem: ServiceIdentity.app, category: "Menu")
     @ObservationIgnored private var applyTask: Task<Void, Never>?
@@ -94,6 +97,16 @@ final class MenuModel {
             savedUnit = .minutes
             savedCount = 10
         }
+
+        refreshLoginItemStatus()
+        // Launching from the installer image should not register that copy as a login item.
+        let volume = try? Bundle.main.bundleURL.resourceValues(forKeys: [.volumeIsReadOnlyKey])
+        LoginItemRegistration.applyDefault(
+            defaults: defaults,
+            isReadOnlyVolume: volume?.volumeIsReadOnly == true,
+            state: loginItemState,
+            enable: { updateLoginItem(true) }
+        )
 
         if enabled { apply() }
         Task { [weak self] in
@@ -126,6 +139,40 @@ final class MenuModel {
         guard value != language else { return }
         language = value
         defaults.set(value.rawValue, forKey: "menuLanguage")
+    }
+
+    func refreshLoginItemStatus() {
+        let state = LoginItemRegistration.State(loginItem.status)
+        if state != loginItemState {
+            loginItemState = state
+            loginItemUpdateFailed = false
+        }
+    }
+
+    func setLaunchAtLogin(_ value: Bool) {
+        LoginItemRegistration.recordChoice(in: defaults)
+        updateLoginItem(value)
+    }
+
+    func openLoginItemsSettings() {
+        SMAppService.openSystemSettingsLoginItems()
+    }
+
+    private func updateLoginItem(_ value: Bool) {
+        loginItemUpdateFailed = false
+        do {
+            loginItemState = try LoginItemRegistration.setEnabled(
+                value,
+                status: { loginItem.status },
+                register: { try loginItem.register() },
+                unregister: { try loginItem.unregister() }
+            )
+        } catch {
+            refreshLoginItemStatus()
+            loginItemUpdateFailed = true
+            let details = error as NSError
+            log.error("Login item update failed (\(details.domain, privacy: .public) \(details.code, privacy: .public)).")
+        }
     }
 
     func perform(_ action: MenuAction) {
@@ -182,7 +229,7 @@ final class MenuModel {
                 mayRequestAuthorization: request == .authorize,
                 status: { helper.status },
                 register: { try helper.register() },
-                openApprovalSettings: { SMAppService.openSystemSettingsLoginItems() }
+                openApprovalSettings: openLoginItemsSettings
             )
         } catch {
             client.close()

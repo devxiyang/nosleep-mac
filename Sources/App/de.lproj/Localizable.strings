@@ -32,3 +32,10 @@
 "Cancel" = "Abbrechen";
 "Language" = "Sprache";
 "Follow System" = "Systemsprache verwenden";
+"Settings" = "Einstellungen";
+"Back" = "Zurück";
+"Launch at Login" = "Bei Anmeldung starten";
+"Approve NoSleep in Login Items." = "Erlaube NoSleep in den Anmeldeobjekten.";
+"Open Login Items" = "Anmeldeobjekte öffnen";
+"The login item is unavailable." = "Das Anmeldeobjekt ist nicht verfügbar.";
+"Could not update the login item." = "Das Anmeldeobjekt konnte nicht aktualisiert werden.";

@@ -96,6 +96,9 @@ private struct MenuFooter: View {
 
                 Link(destination: Self.octoiiURL) {
                     Text(verbatim: "Octoii")
+                        .fontWeight(.semibold)
+                        .foregroundStyle(Color.primary)
+                        .underline()
                 }
             }
             .font(.body.weight(.medium))

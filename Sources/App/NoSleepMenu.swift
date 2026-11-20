@@ -2,6 +2,8 @@ import AppKit
 import SwiftUI
 
 struct NoSleepMenu: View {
+    private static let octoiiURL = URL(string: "https://octoii.com")!
+
     let model: MenuModel
 
     var body: some View {
@@ -22,9 +24,23 @@ struct NoSleepMenu: View {
 
             StatusControls(model: model)
 
-            Button("Quit NoSleep") { NSApplication.shared.terminate(nil) }
-                .buttonStyle(.plain)
-                .foregroundStyle(.secondary)
+            HStack(alignment: .firstTextBaseline) {
+                HStack(alignment: .firstTextBaseline, spacing: 3) {
+                    Text(verbatim: "by")
+                        .foregroundStyle(.secondary)
+
+                    Link(destination: Self.octoiiURL) {
+                        Text(verbatim: "octoii")
+                    }
+                }
+                .font(.caption)
+
+                Spacer()
+
+                Button("Quit NoSleep") { NSApplication.shared.terminate(nil) }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(.secondary)
+            }
         }
         .padding(14)
         .frame(width: 330)

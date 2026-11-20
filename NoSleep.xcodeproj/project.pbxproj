@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3315CCA0B26C6A283DB6576E /* PowerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D44B1A473A29F7747B226B /* PowerSystem.swift */; };
+		3DB08E6A05B34D6E3AE519EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE47F2D5F0EAB91E2FF86058 /* Assets.xcassets */; };
 		42BC5D9B6BC8C0C72CB44DEA /* NoSleepMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6DF4E93C2C12F35F777BC3 /* NoSleepMenu.swift */; };
 		49DA6CC075FF4E0F6B46B4C3 /* PowerDaemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D579E296499A7C504FC835E /* PowerDaemon.swift */; };
 		4E6D600472B8E1C06092E75B /* PowerPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336A4862EBC643A547D4EFAD /* PowerPolicyTests.swift */; };
@@ -61,12 +62,14 @@
 		ECA22B39ED43021F36A598A1 /* PowerOverride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerOverride.swift; sourceTree = "<group>"; };
 		EFBEBDDC3B063D3C3408A6C1 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		F6D44B1A473A29F7747B226B /* PowerSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerSystem.swift; sourceTree = "<group>"; };
+		FE47F2D5F0EAB91E2FF86058 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		142CC21A789499819095F9AD /* App */ = {
 			isa = PBXGroup;
 			children = (
+				FE47F2D5F0EAB91E2FF86058 /* Assets.xcassets */,
 				77C23036AABD1BCC0630683A /* Localizable.strings */,
 				D8D873F8642419BE4E280ACB /* MenuModel.swift */,
 				89BA8AB83B1B67648BB5B30B /* NoSleepApp.swift */,
@@ -248,6 +251,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DB08E6A05B34D6E3AE519EB /* Assets.xcassets in Resources */,
 				F8195E98E0173F2181BD854A /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,14 +268,14 @@
 			);
 			inputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/NoSleepPowerHelper",
-				"$(SRCROOT)/Configuration/com.devxiyang.nosleep-mac.PowerHelper.plist",
+				"$(SRCROOT)/Configuration/com.octoii.nosleep.PowerHelper.plist",
 			);
 			name = "Embed Power Helper";
 			outputFileListPaths = (
 			);
 			outputPaths = (
 				"$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/MacOS/NoSleepPowerHelper",
-				"$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Library/LaunchDaemons/com.devxiyang.nosleep-mac.PowerHelper.plist",
+				"$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Library/LaunchDaemons/com.octoii.nosleep.PowerHelper.plist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -405,7 +409,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.devxiyang.nosleep-mac";
+				PRODUCT_BUNDLE_IDENTIFIER = com.octoii.nosleep;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -420,8 +424,9 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.devxiyang.nosleep-mac.PowerHelper";
+				PRODUCT_BUNDLE_IDENTIFIER = com.octoii.nosleep.PowerHelper;
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -436,7 +441,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.devxiyang.nosleep-mac.Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.octoii.nosleep.Tests;
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -519,7 +524,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.devxiyang.nosleep-mac";
+				PRODUCT_BUNDLE_IDENTIFIER = com.octoii.nosleep;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -535,7 +540,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.devxiyang.nosleep-mac.Tests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.octoii.nosleep.Tests;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -550,8 +555,9 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.devxiyang.nosleep-mac.PowerHelper";
+				PRODUCT_BUNDLE_IDENTIFIER = com.octoii.nosleep.PowerHelper;
 				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};

@@ -30,7 +30,7 @@ enum PowerModeStatus: String, Sendable {
 }
 
 enum ServiceIdentity {
-    static let app = "com.devxiyang.nosleep-mac"
+    static let app = "com.octoii.nosleep"
     static let helper = app + ".PowerHelper"
     static let daemonPlist = helper + ".plist"
 }

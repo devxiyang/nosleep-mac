@@ -3,12 +3,12 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.devxiyang.nosleep-mac.PowerHelper</string>
+    <string>com.octoii.nosleep.PowerHelper</string>
     <key>BundleProgram</key>
     <string>Contents/MacOS/NoSleepPowerHelper</string>
     <key>MachServices</key>
     <dict>
-        <key>com.devxiyang.nosleep-mac.PowerHelper</key>
+        <key>com.octoii.nosleep.PowerHelper</key>
         <true/>
     </dict>
     <key>RunAtLoad</key>

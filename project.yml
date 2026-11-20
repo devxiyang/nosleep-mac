@@ -20,7 +20,7 @@ targets:
       - Sources/Shared
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.devxiyang.nosleep-mac
+        PRODUCT_BUNDLE_IDENTIFIER: com.octoii.nosleep
         INFOPLIST_FILE: Configuration/NoSleep-Info.plist
         ENABLE_USER_SCRIPT_SANDBOXING: YES
     dependencies:
@@ -36,10 +36,10 @@ targets:
           /usr/bin/install -m 644 "$SCRIPT_INPUT_FILE_1" "$SCRIPT_OUTPUT_FILE_1"
         inputFiles:
           - "$(BUILT_PRODUCTS_DIR)/NoSleepPowerHelper"
-          - "$(SRCROOT)/Configuration/com.devxiyang.nosleep-mac.PowerHelper.plist"
+          - "$(SRCROOT)/Configuration/com.octoii.nosleep.PowerHelper.plist"
         outputFiles:
           - "$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/MacOS/NoSleepPowerHelper"
-          - "$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Library/LaunchDaemons/com.devxiyang.nosleep-mac.PowerHelper.plist"
+          - "$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Library/LaunchDaemons/com.octoii.nosleep.PowerHelper.plist"
   NoSleepPowerHelper:
     type: tool
     platform: macOS
@@ -49,9 +49,10 @@ targets:
       - Sources/Shared
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.devxiyang.nosleep-mac.PowerHelper
+        PRODUCT_BUNDLE_IDENTIFIER: com.octoii.nosleep.PowerHelper
         INFOPLIST_FILE: Configuration/PowerHelper-Info.plist
         CREATE_INFOPLIST_SECTION_IN_BINARY: YES
+        SKIP_INSTALL: YES
   NoSleepTests:
     type: bundle.unit-test
     platform: macOS
@@ -63,7 +64,7 @@ targets:
       - Tests
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.devxiyang.nosleep-mac.Tests
+        PRODUCT_BUNDLE_IDENTIFIER: com.octoii.nosleep.Tests
         GENERATE_INFOPLIST_FILE: YES
 schemes:
   NoSleep:

@@ -46,7 +46,7 @@ case "$MODE" in
     ;;
   --logs|--telemetry)
     /usr/bin/open -n "$APP_BUNDLE"
-    /usr/bin/log stream --info --style compact --predicate 'subsystem == "com.devxiyang.nosleep-mac"'
+    /usr/bin/log stream --info --style compact --predicate 'subsystem == "com.octoii.nosleep"'
     ;;
   --verify)
     /usr/bin/open -n "$APP_BUNDLE"

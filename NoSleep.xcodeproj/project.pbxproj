@@ -7,20 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		235380B6AFA6E1AF8E55DF92 /* MenuLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3A2049DB0DFF72A98E379 /* MenuLanguage.swift */; };
 		3315CCA0B26C6A283DB6576E /* PowerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D44B1A473A29F7747B226B /* PowerSystem.swift */; };
 		3DB08E6A05B34D6E3AE519EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE47F2D5F0EAB91E2FF86058 /* Assets.xcassets */; };
 		42BC5D9B6BC8C0C72CB44DEA /* NoSleepMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6DF4E93C2C12F35F777BC3 /* NoSleepMenu.swift */; };
 		49DA6CC075FF4E0F6B46B4C3 /* PowerDaemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D579E296499A7C504FC835E /* PowerDaemon.swift */; };
 		4E6D600472B8E1C06092E75B /* PowerPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336A4862EBC643A547D4EFAD /* PowerPolicyTests.swift */; };
 		55967994C3C516B8F3865391 /* PowerOverride.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA22B39ED43021F36A598A1 /* PowerOverride.swift */; };
+		5E48514724F721020442B726 /* IdleDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152A125664BC49201FBE21C7 /* IdleDuration.swift */; };
 		617764593E36C4F1F32D72F0 /* PowerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D44B1A473A29F7747B226B /* PowerSystem.swift */; };
+		6399706D2F545F88B714600B /* IdleDurationField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1825E0E663529E74FB56C /* IdleDurationField.swift */; };
+		6A9623674EBEC0576CA9A1F1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E88214F711E118E77692FEFE /* Localizable.strings */; };
 		6C7B534944E98F3F6E98A49D /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C337C92C38D1AD854954B /* Mode.swift */; };
+		6FC43912BE183AF8B7543CD1 /* PowerHelperRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675BBD9E6226582F853DF54 /* PowerHelperRegistration.swift */; };
 		71565D2890C56142F9B605F9 /* PowerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EBE4F47AE21C30CD8E1C16 /* PowerClient.swift */; };
 		75470817DAEB7CCAB61CCA48 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D873F8642419BE4E280ACB /* MenuModel.swift */; };
 		75A0E01690C7582D18F860C9 /* NoSleepApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BA8AB83B1B67648BB5B30B /* NoSleepApp.swift */; };
+		855A0133BDDFEAE0B5AFF4D1 /* MenuPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FAA60E6020C4D59E0BB2C8E /* MenuPreferencesTests.swift */; };
 		946CDD1C6CF0507842042B32 /* PowerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24B486B8246EB5DA755FB74 /* PowerConnection.swift */; };
 		9CA69AAFE9B76E6B2C482C66 /* PowerPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086250DAFD7D1F344C5DBB7F /* PowerPolicy.swift */; };
+		A85F79884FB7EC1EAF0AC88C /* PowerHelperRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A922F8C3F41DDAB89BBF6322 /* PowerHelperRegistrationTests.swift */; };
+		AC6D15D895FA5A018B49B2AC /* IdleDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152A125664BC49201FBE21C7 /* IdleDuration.swift */; };
 		AE17F18D1D8C60AC2103D26A /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD9DCD8DF86ABDE8D8D3032 /* Command.swift */; };
+		B28B30D41A8FE9E56B4FFDA9 /* MenuLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3A2049DB0DFF72A98E379 /* MenuLanguage.swift */; };
 		B2E11B0AD065CBC495CE37F6 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD9DCD8DF86ABDE8D8D3032 /* Command.swift */; };
 		B3964845047180A8EC8F912D /* PowerPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086250DAFD7D1F344C5DBB7F /* PowerPolicy.swift */; };
 		B708D5DB9ACD0FE11D628F39 /* PowerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24B486B8246EB5DA755FB74 /* PowerConnection.swift */; };
@@ -28,8 +37,8 @@
 		DB017608819A670F2DBD6B3E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBEBDDC3B063D3C3408A6C1 /* main.swift */; };
 		ED698478FA034856C5DC5B65 /* PowerOverride.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA22B39ED43021F36A598A1 /* PowerOverride.swift */; };
 		EFC173730BED3BBDD7EC0596 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD9DCD8DF86ABDE8D8D3032 /* Command.swift */; };
+		F4E82FF56744FF9ED574F871 /* PowerHelperRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9675BBD9E6226582F853DF54 /* PowerHelperRegistration.swift */; };
 		F5798BA7775D70E994051226 /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C337C92C38D1AD854954B /* Mode.swift */; };
-		F8195E98E0173F2181BD854A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 77C23036AABD1BCC0630683A /* Localizable.strings */; };
 		FDEDA9ACF55DA59AE9D41EA2 /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C337C92C38D1AD854954B /* Mode.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,19 +54,26 @@
 
 /* Begin PBXFileReference section */
 		086250DAFD7D1F344C5DBB7F /* PowerPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerPolicy.swift; sourceTree = "<group>"; };
+		152A125664BC49201FBE21C7 /* IdleDuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleDuration.swift; sourceTree = "<group>"; };
+		2D18A173DE535A26D9F83687 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		336A4862EBC643A547D4EFAD /* PowerPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerPolicyTests.swift; sourceTree = "<group>"; };
+		4BB1825E0E663529E74FB56C /* IdleDurationField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleDurationField.swift; sourceTree = "<group>"; };
 		50903EC6CBC9982623D62CC2 /* FileRecoveryJournal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileRecoveryJournal.swift; sourceTree = "<group>"; };
-		77C23036AABD1BCC0630683A /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		6FAA60E6020C4D59E0BB2C8E /* MenuPreferencesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuPreferencesTests.swift; sourceTree = "<group>"; };
 		8919053DB359884C90600406 /* NoSleepTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NoSleepTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		89BA8AB83B1B67648BB5B30B /* NoSleepApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSleepApp.swift; sourceTree = "<group>"; };
+		8AF3A2049DB0DFF72A98E379 /* MenuLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuLanguage.swift; sourceTree = "<group>"; };
 		8CD9DCD8DF86ABDE8D8D3032 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		8D579E296499A7C504FC835E /* PowerDaemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerDaemon.swift; sourceTree = "<group>"; };
+		9675BBD9E6226582F853DF54 /* PowerHelperRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerHelperRegistration.swift; sourceTree = "<group>"; };
 		9B5DBE4759EE539832ABDFFA /* NoSleepPowerHelper */ = {isa = PBXFileReference; includeInIndex = 0; path = NoSleepPowerHelper; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D5C337C92C38D1AD854954B /* Mode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mode.swift; sourceTree = "<group>"; };
+		A922F8C3F41DDAB89BBF6322 /* PowerHelperRegistrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerHelperRegistrationTests.swift; sourceTree = "<group>"; };
 		C16E41929D7247C57302BEC0 /* NoSleep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoSleep.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C24B486B8246EB5DA755FB74 /* PowerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerConnection.swift; sourceTree = "<group>"; };
 		D8D873F8642419BE4E280ACB /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
 		D8EBE4F47AE21C30CD8E1C16 /* PowerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerClient.swift; sourceTree = "<group>"; };
+		DC7E5456144DE7B23A5EAFA5 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		EA6DF4E93C2C12F35F777BC3 /* NoSleepMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSleepMenu.swift; sourceTree = "<group>"; };
 		ECA22B39ED43021F36A598A1 /* PowerOverride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerOverride.swift; sourceTree = "<group>"; };
 		EFBEBDDC3B063D3C3408A6C1 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -70,11 +86,15 @@
 			isa = PBXGroup;
 			children = (
 				FE47F2D5F0EAB91E2FF86058 /* Assets.xcassets */,
-				77C23036AABD1BCC0630683A /* Localizable.strings */,
+				152A125664BC49201FBE21C7 /* IdleDuration.swift */,
+				4BB1825E0E663529E74FB56C /* IdleDurationField.swift */,
+				8AF3A2049DB0DFF72A98E379 /* MenuLanguage.swift */,
 				D8D873F8642419BE4E280ACB /* MenuModel.swift */,
 				89BA8AB83B1B67648BB5B30B /* NoSleepApp.swift */,
 				EA6DF4E93C2C12F35F777BC3 /* NoSleepMenu.swift */,
 				D8EBE4F47AE21C30CD8E1C16 /* PowerClient.swift */,
+				9675BBD9E6226582F853DF54 /* PowerHelperRegistration.swift */,
+				E88214F711E118E77692FEFE /* Localizable.strings */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -122,6 +142,8 @@
 		B653E6790A06523B980397CA /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				6FAA60E6020C4D59E0BB2C8E /* MenuPreferencesTests.swift */,
+				A922F8C3F41DDAB89BBF6322 /* PowerHelperRegistrationTests.swift */,
 				336A4862EBC643A547D4EFAD /* PowerPolicyTests.swift */,
 			);
 			path = Tests;
@@ -252,7 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DB08E6A05B34D6E3AE519EB /* Assets.xcassets in Resources */,
-				F8195E98E0173F2181BD854A /* Localizable.strings in Resources */,
+				6A9623674EBEC0576CA9A1F1 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -289,7 +311,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE17F18D1D8C60AC2103D26A /* Command.swift in Sources */,
+				5E48514724F721020442B726 /* IdleDuration.swift in Sources */,
+				235380B6AFA6E1AF8E55DF92 /* MenuLanguage.swift in Sources */,
+				855A0133BDDFEAE0B5AFF4D1 /* MenuPreferencesTests.swift in Sources */,
 				6C7B534944E98F3F6E98A49D /* Mode.swift in Sources */,
+				6FC43912BE183AF8B7543CD1 /* PowerHelperRegistration.swift in Sources */,
+				A85F79884FB7EC1EAF0AC88C /* PowerHelperRegistrationTests.swift in Sources */,
 				ED698478FA034856C5DC5B65 /* PowerOverride.swift in Sources */,
 				9CA69AAFE9B76E6B2C482C66 /* PowerPolicy.swift in Sources */,
 				4E6D600472B8E1C06092E75B /* PowerPolicyTests.swift in Sources */,
@@ -318,12 +345,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				B2E11B0AD065CBC495CE37F6 /* Command.swift in Sources */,
+				AC6D15D895FA5A018B49B2AC /* IdleDuration.swift in Sources */,
+				6399706D2F545F88B714600B /* IdleDurationField.swift in Sources */,
+				B28B30D41A8FE9E56B4FFDA9 /* MenuLanguage.swift in Sources */,
 				75470817DAEB7CCAB61CCA48 /* MenuModel.swift in Sources */,
 				F5798BA7775D70E994051226 /* Mode.swift in Sources */,
 				75A0E01690C7582D18F860C9 /* NoSleepApp.swift in Sources */,
 				42BC5D9B6BC8C0C72CB44DEA /* NoSleepMenu.swift in Sources */,
 				71565D2890C56142F9B605F9 /* PowerClient.swift in Sources */,
 				B708D5DB9ACD0FE11D628F39 /* PowerConnection.swift in Sources */,
+				F4E82FF56744FF9ED574F871 /* PowerHelperRegistration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +367,18 @@
 			targetProxy = 1568ECF48D41B254869C5C42 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E88214F711E118E77692FEFE /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2D18A173DE535A26D9F83687 /* en */,
+				DC7E5456144DE7B23A5EAFA5 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		0984E3B82B9669B53C31CF73 /* Release */ = {
@@ -373,7 +416,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -387,7 +430,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -481,7 +524,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -501,7 +544,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.1.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;

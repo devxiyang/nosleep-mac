@@ -7,8 +7,8 @@ options:
 settings:
   base:
     SWIFT_VERSION: "6.0"
-    MARKETING_VERSION: "0.1.0"
-    CURRENT_PROJECT_VERSION: "1"
+    MARKETING_VERSION: "0.1.2"
+    CURRENT_PROJECT_VERSION: "3"
     CODE_SIGN_STYLE: Automatic
     ENABLE_HARDENED_RUNTIME: YES
 targets:
@@ -61,6 +61,9 @@ targets:
       - Sources/Shared/Command.swift
       - Sources/Shared/Mode.swift
       - Sources/Helper/PowerSystem.swift
+      - Sources/App/PowerHelperRegistration.swift
+      - Sources/App/MenuLanguage.swift
+      - Sources/App/IdleDuration.swift
       - Tests
     settings:
       base:

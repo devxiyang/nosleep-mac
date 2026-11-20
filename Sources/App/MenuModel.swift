@@ -4,11 +4,28 @@ import Observation
 import OSLog
 import ServiceManagement
 
+enum MenuAction {
+    case authorizeHelper
+    case openBackgroundItems
+    case openLockScreenSettings
+    case retry
+
+    var title: LocalizedStringResource {
+        switch self {
+        case .authorizeHelper: "Continue Setup"
+        case .openBackgroundItems: "Open Background Items"
+        case .openLockScreenSettings: "Open Lock Screen Settings"
+        case .retry: "Retry"
+        }
+    }
+}
+
 enum MenuStatus: Equatable {
     case checking
     case signingRequired
-    case installHelper
+    case setupHelper
     case approveHelper
+    case helperRegistrationFailed
     case lockPolicyRequired
     case lockPolicyUnavailable
     case power(PowerModeStatus)
@@ -17,11 +34,12 @@ enum MenuStatus: Equatable {
         switch self {
         case .checking: "Applying settings…"
         case .signingRequired: "Build the app and helper with the same Apple signing team."
-        case .installHelper: "Set up the power helper to use lid-closed mode."
-        case .approveHelper: "Allow the power helper in System Settings."
-        case .lockPolicyRequired: "Set macOS to require a password immediately after the display turns off."
+        case .setupHelper: "Background access is required."
+        case .approveHelper: "Waiting for background approval."
+        case .helperRegistrationFailed: "Could not register the power helper."
+        case .lockPolicyRequired: "Require a password immediately after the display turns off."
         case .lockPolicyUnavailable: "Could not read the macOS lock screen policy."
-        case .power(.off): "Using macOS sleep settings."
+        case .power(.off): "Off · works when plugged in"
         case .power(.active): "Active on external power."
         case .power(.battery): "Paused on battery."
         case .power(.existingOverride): "macOS already has a system sleep override."
@@ -33,6 +51,17 @@ enum MenuStatus: Equatable {
         case .power(.inactiveUser): "Open NoSleep from the currently signed-in desktop."
         }
     }
+
+    var action: MenuAction? {
+        switch self {
+        case .setupHelper: .authorizeHelper
+        case .approveHelper: .openBackgroundItems
+        case .lockPolicyRequired: .openLockScreenSettings
+        case .helperRegistrationFailed, .lockPolicyUnavailable, .power(.off), .power(.failed),
+             .power(.unavailable), .power(.busy), .power(.settingsChanged), .power(.existingOverride): .retry
+        default: nil
+        }
+    }
 }
 
 @MainActor
@@ -42,18 +71,20 @@ final class MenuModel {
     private(set) var status: MenuStatus = .power(.off)
     private(set) var savedCount: Int
     private(set) var savedUnit: DurationUnit
+    private(set) var language: MenuLanguage
 
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private let helper = SMAppService.daemon(plistName: ServiceIdentity.daemonPlist)
     @ObservationIgnored private let client = PowerClient()
     @ObservationIgnored private let log = Logger(subsystem: ServiceIdentity.app, category: "Menu")
     @ObservationIgnored private var applyTask: Task<Void, Never>?
-    @ObservationIgnored private var needsApply = false
+    @ObservationIgnored private var pendingRequest: ApplyRequest?
     @ObservationIgnored private var revision = 0
 
     init(defaults: UserDefaults = .standard) {
         self.defaults = defaults
         enabled = defaults.bool(forKey: "keepAwakeOnAC")
+        language = MenuLanguage.preference(defaults.string(forKey: "menuLanguage"))
         let unit = defaults.string(forKey: "idleUnit").flatMap(DurationUnit.init(rawValue:)) ?? .minutes
         let count = defaults.integer(forKey: "idleCount")
         if unit.totalMinutes(count) != nil {
@@ -78,7 +109,7 @@ final class MenuModel {
         guard value != enabled else { return }
         enabled = value
         defaults.set(value, forKey: "keepAwakeOnAC")
-        apply()
+        apply(value ? .authorize : .refresh)
     }
 
     func saveDuration(_ count: Int, unit: DurationUnit) {
@@ -91,46 +122,49 @@ final class MenuModel {
         if enabled { apply() }
     }
 
-    func installHelper() {
-        guard enabled, ConnectionSigning.teamID() != nil else { return }
-        do {
-            try helper.register()
-            if helper.status == .requiresApproval { SMAppService.openSystemSettingsLoginItems() }
-            apply()
-        } catch {
-            log.error("Helper registration failed: \(error.localizedDescription, privacy: .public)")
-            status = .power(.unavailable)
+    func setLanguage(_ value: MenuLanguage) {
+        guard value != language else { return }
+        language = value
+        defaults.set(value.rawValue, forKey: "menuLanguage")
+    }
+
+    func perform(_ action: MenuAction) {
+        guard enabled else { return }
+        switch action {
+        case .authorizeHelper, .openBackgroundItems, .retry:
+            apply(.authorize)
+        case .openLockScreenSettings:
+            if let url = URL(string: "x-apple.systempreferences:com.apple.Lock-Screen-Settings.extension") {
+                NSWorkspace.shared.open(url)
+            }
         }
     }
 
-    func openHelperSettings() {
-        SMAppService.openSystemSettingsLoginItems()
+    private enum ApplyRequest {
+        case refresh
+        case authorize
     }
 
-    func openLockSettings() {
-        if let url = URL(string: "x-apple.systempreferences:com.apple.Lock-Screen-Settings.extension") {
-            NSWorkspace.shared.open(url)
-        }
-    }
-
-    func apply() {
+    private func apply(_ request: ApplyRequest = .refresh) {
         revision &+= 1
-        needsApply = true
+        // A passive refresh must not consume an explicit request queued by the switch.
+        let wantsAuthorization = request == .authorize || pendingRequest == .authorize
+        pendingRequest = enabled && wantsAuthorization ? .authorize : .refresh
         status = .checking
         guard applyTask == nil else { return }
         applyTask = Task { [weak self] in await self?.applyPending() }
     }
 
     private func applyPending() async {
-        while needsApply {
-            needsApply = false
-            let newStatus = await reconcile()
-            if !needsApply { status = newStatus }
+        while let request = pendingRequest {
+            pendingRequest = nil
+            let newStatus = await reconcile(request)
+            if pendingRequest == nil { status = newStatus }
         }
         applyTask = nil
     }
 
-    private func reconcile() async -> MenuStatus {
+    private func reconcile(_ request: ApplyRequest) async -> MenuStatus {
         guard enabled else {
             if client.isConnected {
                 let result = await client.setMode(false, minutes: 0)
@@ -140,6 +174,37 @@ final class MenuModel {
             return .power(.off)
         }
         guard ConnectionSigning.teamID() != nil else { return .signingRequired }
+
+        let readiness: PowerHelperRegistration.Readiness
+        do {
+            readiness = try PowerHelperRegistration.prepare(
+                bundleURL: Bundle.main.bundleURL,
+                mayRequestAuthorization: request == .authorize,
+                status: { helper.status },
+                register: { try helper.register() },
+                openApprovalSettings: { SMAppService.openSystemSettingsLoginItems() }
+            )
+        } catch {
+            client.close()
+            let details = error as NSError
+            log.error("Helper registration failed (\(details.domain, privacy: .public) \(details.code, privacy: .public)).")
+            return .helperRegistrationFailed
+        }
+
+        switch readiness {
+        case .setupRequired:
+            client.close()
+            return .setupHelper
+        case .approvalRequired:
+            client.close()
+            return .approveHelper
+        case .unavailable:
+            client.close()
+            return .power(.unavailable)
+        case .ready:
+            break
+        }
+
         let requestRevision = revision
         let policy = await Self.lockPolicy()
         guard requestRevision == revision else { return .checking }
@@ -147,31 +212,38 @@ final class MenuModel {
             client.close()
             return policy == .other ? .lockPolicyRequired : .lockPolicyUnavailable
         }
-
-        switch helper.status {
-        case .notRegistered: return .installHelper
-        case .requiresApproval:
-            client.close()
-            return .approveHelper
-        case .enabled:
-            guard let minutes = savedUnit.totalMinutes(savedCount) else { return .power(.failed) }
-            return .power(await client.setMode(true, minutes: minutes))
-        default:
-            client.close()
-            return .power(.unavailable)
-        }
+        guard let minutes = savedUnit.totalMinutes(savedCount) else { return .power(.failed) }
+        return .power(await client.setMode(true, minutes: minutes))
     }
 
     private func refreshStatus() async {
         guard enabled, applyTask == nil else { return }
-        if status == .approveHelper || status == .installHelper {
-            if helper.status == .enabled { apply() }
+
+        switch status {
+        case .setupHelper, .approveHelper, .helperRegistrationFailed:
+            let readiness = PowerHelperRegistration.readiness(for: helper.status, bundleURL: Bundle.main.bundleURL)
+            if readiness == .ready || (readiness == .approvalRequired && status != .approveHelper) {
+                apply()
+            }
             return
+        case .lockPolicyRequired:
+            let requestRevision = revision
+            let policy = await Self.lockPolicy()
+            if requestRevision == revision, policy == .immediate { apply() }
+            return
+        default:
+            break
         }
+
         guard client.isConnected else { return }
         let requestRevision = revision
         let result = await client.status()
-        if requestRevision == revision { status = .power(result) }
+        guard requestRevision == revision else { return }
+        if result == .unavailable && helper.status != .enabled {
+            apply()
+        } else {
+            status = .power(result)
+        }
     }
 
     private enum LockPolicy: Sendable {

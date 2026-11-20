@@ -1,0 +1,74 @@
+name: NoSleep
+options:
+  deploymentTarget:
+    macOS: "26.0"
+  developmentLanguage: en
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    CODE_SIGN_STYLE: Automatic
+    ENABLE_HARDENED_RUNTIME: YES
+targets:
+  NoSleep:
+    type: application
+    platform: macOS
+    sources:
+      - Sources/App
+      - Sources/Shared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.devxiyang.nosleep-mac
+        INFOPLIST_FILE: Configuration/NoSleep-Info.plist
+        ENABLE_USER_SCRIPT_SANDBOXING: YES
+    dependencies:
+      - target: NoSleepPowerHelper
+        link: false
+        embed: false
+    postBuildScripts:
+      - name: Embed Power Helper
+        script: |
+          set -eu
+          /bin/mkdir -p "$(dirname "$SCRIPT_OUTPUT_FILE_0")" "$(dirname "$SCRIPT_OUTPUT_FILE_1")"
+          /usr/bin/install -m 755 "$SCRIPT_INPUT_FILE_0" "$SCRIPT_OUTPUT_FILE_0"
+          /usr/bin/install -m 644 "$SCRIPT_INPUT_FILE_1" "$SCRIPT_OUTPUT_FILE_1"
+        inputFiles:
+          - "$(BUILT_PRODUCTS_DIR)/NoSleepPowerHelper"
+          - "$(SRCROOT)/Configuration/com.devxiyang.nosleep-mac.PowerHelper.plist"
+        outputFiles:
+          - "$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/MacOS/NoSleepPowerHelper"
+          - "$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Library/LaunchDaemons/com.devxiyang.nosleep-mac.PowerHelper.plist"
+  NoSleepPowerHelper:
+    type: tool
+    platform: macOS
+    sources:
+      - Sources/Core
+      - Sources/Helper
+      - Sources/Shared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.devxiyang.nosleep-mac.PowerHelper
+        INFOPLIST_FILE: Configuration/PowerHelper-Info.plist
+        CREATE_INFOPLIST_SECTION_IN_BINARY: YES
+  NoSleepTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - Sources/Core
+      - Sources/Shared/Command.swift
+      - Sources/Shared/Mode.swift
+      - Sources/Helper/PowerSystem.swift
+      - Tests
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.devxiyang.nosleep-mac.Tests
+        GENERATE_INFOPLIST_FILE: YES
+schemes:
+  NoSleep:
+    build:
+      targets:
+        NoSleep: all
+    test:
+      targets: [NoSleepTests]

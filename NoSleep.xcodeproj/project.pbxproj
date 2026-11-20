@@ -1,0 +1,600 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3315CCA0B26C6A283DB6576E /* PowerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D44B1A473A29F7747B226B /* PowerSystem.swift */; };
+		42BC5D9B6BC8C0C72CB44DEA /* NoSleepMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6DF4E93C2C12F35F777BC3 /* NoSleepMenu.swift */; };
+		49DA6CC075FF4E0F6B46B4C3 /* PowerDaemon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D579E296499A7C504FC835E /* PowerDaemon.swift */; };
+		4E6D600472B8E1C06092E75B /* PowerPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 336A4862EBC643A547D4EFAD /* PowerPolicyTests.swift */; };
+		55967994C3C516B8F3865391 /* PowerOverride.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA22B39ED43021F36A598A1 /* PowerOverride.swift */; };
+		617764593E36C4F1F32D72F0 /* PowerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D44B1A473A29F7747B226B /* PowerSystem.swift */; };
+		6C7B534944E98F3F6E98A49D /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C337C92C38D1AD854954B /* Mode.swift */; };
+		71565D2890C56142F9B605F9 /* PowerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8EBE4F47AE21C30CD8E1C16 /* PowerClient.swift */; };
+		75470817DAEB7CCAB61CCA48 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D873F8642419BE4E280ACB /* MenuModel.swift */; };
+		75A0E01690C7582D18F860C9 /* NoSleepApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BA8AB83B1B67648BB5B30B /* NoSleepApp.swift */; };
+		946CDD1C6CF0507842042B32 /* PowerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24B486B8246EB5DA755FB74 /* PowerConnection.swift */; };
+		9CA69AAFE9B76E6B2C482C66 /* PowerPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086250DAFD7D1F344C5DBB7F /* PowerPolicy.swift */; };
+		AE17F18D1D8C60AC2103D26A /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD9DCD8DF86ABDE8D8D3032 /* Command.swift */; };
+		B2E11B0AD065CBC495CE37F6 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD9DCD8DF86ABDE8D8D3032 /* Command.swift */; };
+		B3964845047180A8EC8F912D /* PowerPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086250DAFD7D1F344C5DBB7F /* PowerPolicy.swift */; };
+		B708D5DB9ACD0FE11D628F39 /* PowerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24B486B8246EB5DA755FB74 /* PowerConnection.swift */; };
+		C21C92769E5BF64FEB606EA5 /* FileRecoveryJournal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50903EC6CBC9982623D62CC2 /* FileRecoveryJournal.swift */; };
+		DB017608819A670F2DBD6B3E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBEBDDC3B063D3C3408A6C1 /* main.swift */; };
+		ED698478FA034856C5DC5B65 /* PowerOverride.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA22B39ED43021F36A598A1 /* PowerOverride.swift */; };
+		EFC173730BED3BBDD7EC0596 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD9DCD8DF86ABDE8D8D3032 /* Command.swift */; };
+		F5798BA7775D70E994051226 /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C337C92C38D1AD854954B /* Mode.swift */; };
+		F8195E98E0173F2181BD854A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 77C23036AABD1BCC0630683A /* Localizable.strings */; };
+		FDEDA9ACF55DA59AE9D41EA2 /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C337C92C38D1AD854954B /* Mode.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1568ECF48D41B254869C5C42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8EC7F62A25BEB279BD80F4F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 825BF3B96E221E42A7F5D08D;
+			remoteInfo = NoSleepPowerHelper;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		086250DAFD7D1F344C5DBB7F /* PowerPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerPolicy.swift; sourceTree = "<group>"; };
+		336A4862EBC643A547D4EFAD /* PowerPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerPolicyTests.swift; sourceTree = "<group>"; };
+		50903EC6CBC9982623D62CC2 /* FileRecoveryJournal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileRecoveryJournal.swift; sourceTree = "<group>"; };
+		77C23036AABD1BCC0630683A /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Localizable.strings; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		8919053DB359884C90600406 /* NoSleepTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NoSleepTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		89BA8AB83B1B67648BB5B30B /* NoSleepApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSleepApp.swift; sourceTree = "<group>"; };
+		8CD9DCD8DF86ABDE8D8D3032 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		8D579E296499A7C504FC835E /* PowerDaemon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerDaemon.swift; sourceTree = "<group>"; };
+		9B5DBE4759EE539832ABDFFA /* NoSleepPowerHelper */ = {isa = PBXFileReference; includeInIndex = 0; path = NoSleepPowerHelper; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D5C337C92C38D1AD854954B /* Mode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mode.swift; sourceTree = "<group>"; };
+		C16E41929D7247C57302BEC0 /* NoSleep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoSleep.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C24B486B8246EB5DA755FB74 /* PowerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerConnection.swift; sourceTree = "<group>"; };
+		D8D873F8642419BE4E280ACB /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
+		D8EBE4F47AE21C30CD8E1C16 /* PowerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerClient.swift; sourceTree = "<group>"; };
+		EA6DF4E93C2C12F35F777BC3 /* NoSleepMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSleepMenu.swift; sourceTree = "<group>"; };
+		ECA22B39ED43021F36A598A1 /* PowerOverride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerOverride.swift; sourceTree = "<group>"; };
+		EFBEBDDC3B063D3C3408A6C1 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		F6D44B1A473A29F7747B226B /* PowerSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerSystem.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		142CC21A789499819095F9AD /* App */ = {
+			isa = PBXGroup;
+			children = (
+				77C23036AABD1BCC0630683A /* Localizable.strings */,
+				D8D873F8642419BE4E280ACB /* MenuModel.swift */,
+				89BA8AB83B1B67648BB5B30B /* NoSleepApp.swift */,
+				EA6DF4E93C2C12F35F777BC3 /* NoSleepMenu.swift */,
+				D8EBE4F47AE21C30CD8E1C16 /* PowerClient.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		4443730CE9EB5C7488019588 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				142CC21A789499819095F9AD /* App */,
+				87F136FE0BB5661F0051EF05 /* Core */,
+				AB39E93B47F3FDFEC7ACBA34 /* Helper */,
+				BC444BDB59BC49C4FCDDFE84 /* Shared */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		87F136FE0BB5661F0051EF05 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				ECA22B39ED43021F36A598A1 /* PowerOverride.swift */,
+				086250DAFD7D1F344C5DBB7F /* PowerPolicy.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		96F618FA97579F547EDC5EF4 = {
+			isa = PBXGroup;
+			children = (
+				4443730CE9EB5C7488019588 /* Sources */,
+				B653E6790A06523B980397CA /* Tests */,
+				FDAE10967FB217E58F59262E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AB39E93B47F3FDFEC7ACBA34 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				50903EC6CBC9982623D62CC2 /* FileRecoveryJournal.swift */,
+				EFBEBDDC3B063D3C3408A6C1 /* main.swift */,
+				8D579E296499A7C504FC835E /* PowerDaemon.swift */,
+				F6D44B1A473A29F7747B226B /* PowerSystem.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		B653E6790A06523B980397CA /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				336A4862EBC643A547D4EFAD /* PowerPolicyTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		BC444BDB59BC49C4FCDDFE84 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				8CD9DCD8DF86ABDE8D8D3032 /* Command.swift */,
+				9D5C337C92C38D1AD854954B /* Mode.swift */,
+				C24B486B8246EB5DA755FB74 /* PowerConnection.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		FDAE10967FB217E58F59262E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C16E41929D7247C57302BEC0 /* NoSleep.app */,
+				9B5DBE4759EE539832ABDFFA /* NoSleepPowerHelper */,
+				8919053DB359884C90600406 /* NoSleepTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		599FDB8C2CDB6DEDB51084A8 /* NoSleep */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1C77C69A471361BAF30A0DB /* Build configuration list for PBXNativeTarget "NoSleep" */;
+			buildPhases = (
+				B8F9CD949C6C5B3FF614EB3E /* Sources */,
+				7408027983CEE341E3D8A3DC /* Resources */,
+				144ACF3D1D2F1EE8FB69AE5C /* Embed Power Helper */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FA92B48A9CE4B6E897C07864 /* PBXTargetDependency */,
+			);
+			name = NoSleep;
+			packageProductDependencies = (
+			);
+			productName = NoSleep;
+			productReference = C16E41929D7247C57302BEC0 /* NoSleep.app */;
+			productType = "com.apple.product-type.application";
+		};
+		825BF3B96E221E42A7F5D08D /* NoSleepPowerHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4917874425E81E6252F4C4C9 /* Build configuration list for PBXNativeTarget "NoSleepPowerHelper" */;
+			buildPhases = (
+				3DAFA45A21FE9BADCC49B044 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NoSleepPowerHelper;
+			packageProductDependencies = (
+			);
+			productName = NoSleepPowerHelper;
+			productReference = 9B5DBE4759EE539832ABDFFA /* NoSleepPowerHelper */;
+			productType = "com.apple.product-type.tool";
+		};
+		DB071D708428C35B694E7E57 /* NoSleepTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E5B6F7355E94456B1BC23953 /* Build configuration list for PBXNativeTarget "NoSleepTests" */;
+			buildPhases = (
+				2B85AB5F47E140F5BBCBBC17 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NoSleepTests;
+			packageProductDependencies = (
+			);
+			productName = NoSleepTests;
+			productReference = 8919053DB359884C90600406 /* NoSleepTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B8EC7F62A25BEB279BD80F4F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					599FDB8C2CDB6DEDB51084A8 = {
+						ProvisioningStyle = Automatic;
+					};
+					825BF3B96E221E42A7F5D08D = {
+						ProvisioningStyle = Automatic;
+					};
+					DB071D708428C35B694E7E57 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 7F5A59226524D19AB639B5F2 /* Build configuration list for PBXProject "NoSleep" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+				"zh-Hans",
+			);
+			mainGroup = 96F618FA97579F547EDC5EF4;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = FDAE10967FB217E58F59262E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				599FDB8C2CDB6DEDB51084A8 /* NoSleep */,
+				825BF3B96E221E42A7F5D08D /* NoSleepPowerHelper */,
+				DB071D708428C35B694E7E57 /* NoSleepTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7408027983CEE341E3D8A3DC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F8195E98E0173F2181BD854A /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		144ACF3D1D2F1EE8FB69AE5C /* Embed Power Helper */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/NoSleepPowerHelper",
+				"$(SRCROOT)/Configuration/com.devxiyang.nosleep-mac.PowerHelper.plist",
+			);
+			name = "Embed Power Helper";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/MacOS/NoSleepPowerHelper",
+				"$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Library/LaunchDaemons/com.devxiyang.nosleep-mac.PowerHelper.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -eu\n/bin/mkdir -p \"$(dirname \"$SCRIPT_OUTPUT_FILE_0\")\" \"$(dirname \"$SCRIPT_OUTPUT_FILE_1\")\"\n/usr/bin/install -m 755 \"$SCRIPT_INPUT_FILE_0\" \"$SCRIPT_OUTPUT_FILE_0\"\n/usr/bin/install -m 644 \"$SCRIPT_INPUT_FILE_1\" \"$SCRIPT_OUTPUT_FILE_1\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2B85AB5F47E140F5BBCBBC17 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE17F18D1D8C60AC2103D26A /* Command.swift in Sources */,
+				6C7B534944E98F3F6E98A49D /* Mode.swift in Sources */,
+				ED698478FA034856C5DC5B65 /* PowerOverride.swift in Sources */,
+				9CA69AAFE9B76E6B2C482C66 /* PowerPolicy.swift in Sources */,
+				4E6D600472B8E1C06092E75B /* PowerPolicyTests.swift in Sources */,
+				617764593E36C4F1F32D72F0 /* PowerSystem.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3DAFA45A21FE9BADCC49B044 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EFC173730BED3BBDD7EC0596 /* Command.swift in Sources */,
+				C21C92769E5BF64FEB606EA5 /* FileRecoveryJournal.swift in Sources */,
+				FDEDA9ACF55DA59AE9D41EA2 /* Mode.swift in Sources */,
+				946CDD1C6CF0507842042B32 /* PowerConnection.swift in Sources */,
+				49DA6CC075FF4E0F6B46B4C3 /* PowerDaemon.swift in Sources */,
+				55967994C3C516B8F3865391 /* PowerOverride.swift in Sources */,
+				B3964845047180A8EC8F912D /* PowerPolicy.swift in Sources */,
+				3315CCA0B26C6A283DB6576E /* PowerSystem.swift in Sources */,
+				DB017608819A670F2DBD6B3E /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B8F9CD949C6C5B3FF614EB3E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B2E11B0AD065CBC495CE37F6 /* Command.swift in Sources */,
+				75470817DAEB7CCAB61CCA48 /* MenuModel.swift in Sources */,
+				F5798BA7775D70E994051226 /* Mode.swift in Sources */,
+				75A0E01690C7582D18F860C9 /* NoSleepApp.swift in Sources */,
+				42BC5D9B6BC8C0C72CB44DEA /* NoSleepMenu.swift in Sources */,
+				71565D2890C56142F9B605F9 /* PowerClient.swift in Sources */,
+				B708D5DB9ACD0FE11D628F39 /* PowerConnection.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FA92B48A9CE4B6E897C07864 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 825BF3B96E221E42A7F5D08D /* NoSleepPowerHelper */;
+			targetProxy = 1568ECF48D41B254869C5C42 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0984E3B82B9669B53C31CF73 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		2207FBD01388358ED22A37E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				INFOPLIST_FILE = "Configuration/NoSleep-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.devxiyang.nosleep-mac";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		51792E339B2BDE7584AA65CC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				INFOPLIST_FILE = "Configuration/PowerHelper-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.devxiyang.nosleep-mac.PowerHelper";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C3F54C9B8BF26005CEE0C11A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.devxiyang.nosleep-mac.Tests";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		D68055587847294111D3176A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		DB424A3730C18E181B07B784 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				INFOPLIST_FILE = "Configuration/NoSleep-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.devxiyang.nosleep-mac";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F126076FDA1E40A3B3314186 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.devxiyang.nosleep-mac.Tests";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		F336F29FCD0E1A727048FBF7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				INFOPLIST_FILE = "Configuration/PowerHelper-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.devxiyang.nosleep-mac.PowerHelper";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4917874425E81E6252F4C4C9 /* Build configuration list for PBXNativeTarget "NoSleepPowerHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				51792E339B2BDE7584AA65CC /* Debug */,
+				F336F29FCD0E1A727048FBF7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7F5A59226524D19AB639B5F2 /* Build configuration list for PBXProject "NoSleep" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D68055587847294111D3176A /* Debug */,
+				0984E3B82B9669B53C31CF73 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C1C77C69A471361BAF30A0DB /* Build configuration list for PBXNativeTarget "NoSleep" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2207FBD01388358ED22A37E4 /* Debug */,
+				DB424A3730C18E181B07B784 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E5B6F7355E94456B1BC23953 /* Build configuration list for PBXNativeTarget "NoSleepTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C3F54C9B8BF26005CEE0C11A /* Debug */,
+				F126076FDA1E40A3B3314186 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B8EC7F62A25BEB279BD80F4F /* Project object */;
+}

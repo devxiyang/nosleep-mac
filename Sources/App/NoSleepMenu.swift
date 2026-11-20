@@ -5,6 +5,8 @@ struct NoSleepMenu: View {
     let model: MenuModel
 
     var body: some View {
+        let locale = model.language.resolved().locale
+
         VStack(alignment: .leading, spacing: 12) {
             ModeControls(
                 enabled: Binding(get: { model.enabled }, set: model.setEnabled),
@@ -24,7 +26,8 @@ struct NoSleepMenu: View {
         }
         .padding(14)
         .frame(width: 340)
-        .environment(\.locale, model.language.locale)
+        .environment(\.locale, locale)
+        .environment(\.layoutDirection, locale.language.characterDirection == .rightToLeft ? .rightToLeft : .leftToRight)
     }
 }
 
@@ -79,33 +82,44 @@ private struct MenuFooter: View {
     @Binding var language: MenuLanguage
 
     var body: some View {
-        HStack(alignment: .firstTextBaseline) {
+        HStack(alignment: .firstTextBaseline, spacing: 8) {
             HStack(alignment: .firstTextBaseline, spacing: 3) {
-                Text(verbatim: "by")
+                Text(verbatim: "❤️ By")
                     .foregroundStyle(.secondary)
 
                 Link(destination: Self.octoiiURL) {
-                    Text(verbatim: "octoii")
+                    Text(verbatim: "Octoii")
                 }
             }
             .font(.body.weight(.medium))
 
-            Spacer()
+            Spacer(minLength: 8)
 
-            Picker("Language", selection: $language) {
-                ForEach(MenuLanguage.allCases) { option in
-                    Text(verbatim: option.nativeName).tag(option)
+            HStack(spacing: 10) {
+                Menu {
+                    Picker("Language", selection: $language) {
+                        Text("Follow System").tag(MenuLanguage.system)
+
+                        ForEach(MenuLanguage.supported) { option in
+                            Text(verbatim: option.nativeName).tag(option)
+                        }
+                    }
+                    .pickerStyle(.inline)
+                } label: {
+                    Label("Language", systemImage: "globe")
+                        .font(.caption)
                 }
-            }
-            .labelsHidden()
-            .pickerStyle(.menu)
-            .fixedSize()
-            .help("Language")
-
-            Button("Quit NoSleep") { NSApplication.shared.terminate(nil) }
-                .buttonStyle(.plain)
+                .menuStyle(.borderlessButton)
+                .controlSize(.small)
                 .foregroundStyle(.secondary)
+                .fixedSize()
+                .help("Language")
+
+                Button("Quit NoSleep") { NSApplication.shared.terminate(nil) }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(.secondary)
+            }
+            .font(.caption)
         }
-        .font(.caption)
     }
 }

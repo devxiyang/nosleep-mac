@@ -8,8 +8,11 @@ struct IdleDuration: Hashable {
         + [1, 2, 10].map { Self(count: $0, unit: .hours) }
 
     static func custom(_ text: String, unit: DurationUnit) -> Self? {
-        guard let count = Int(text.trimmingCharacters(in: .whitespacesAndNewlines)),
-              unit.totalMinutes(count) != nil else { return nil }
+        let input = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        let normalized = input.unicodeScalars.allSatisfy(CharacterSet.decimalDigits.contains)
+            ? input.compactMap(\.wholeNumberValue).map(String.init).joined()
+            : input
+        guard let count = Int(normalized), unit.totalMinutes(count) != nil else { return nil }
         return Self(count: count, unit: unit)
     }
 

@@ -5,7 +5,7 @@ struct IdleDuration: Hashable {
     let unit: DurationUnit
 
     static let presets = [5, 10, 15, 30].map { Self(count: $0, unit: .minutes) }
-        + [1, 2, 10].map { Self(count: $0, unit: .hours) }
+        + [1, 2, 4, 8, 12, 24].map { Self(count: $0, unit: .hours) }
 
     static func custom(_ text: String, unit: DurationUnit) -> Self? {
         let input = text.trimmingCharacters(in: .whitespacesAndNewlines)

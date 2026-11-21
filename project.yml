@@ -7,8 +7,8 @@ options:
 settings:
   base:
     SWIFT_VERSION: "6.0"
-    MARKETING_VERSION: "0.1.6"
-    CURRENT_PROJECT_VERSION: "7"
+    MARKETING_VERSION: "0.1.7"
+    CURRENT_PROJECT_VERSION: "8"
     CODE_SIGN_STYLE: Automatic
     ENABLE_HARDENED_RUNTIME: YES
 targets:
@@ -27,19 +27,29 @@ targets:
       - target: NoSleepPowerHelper
         link: false
         embed: false
+      - target: NoSleepScreenSaverAgent
+        link: false
+        embed: true
+        codeSign: true
+        copy:
+          destination: wrapper
+          subpath: Contents/Library/LoginItems
     postBuildScripts:
-      - name: Embed Power Helper
+      - name: Embed Background Services
         script: |
           set -eu
-          /bin/mkdir -p "$(dirname "$SCRIPT_OUTPUT_FILE_0")" "$(dirname "$SCRIPT_OUTPUT_FILE_1")"
+          /bin/mkdir -p "$(dirname "$SCRIPT_OUTPUT_FILE_0")" "$(dirname "$SCRIPT_OUTPUT_FILE_1")" "$(dirname "$SCRIPT_OUTPUT_FILE_2")"
           /usr/bin/install -m 755 "$SCRIPT_INPUT_FILE_0" "$SCRIPT_OUTPUT_FILE_0"
           /usr/bin/install -m 644 "$SCRIPT_INPUT_FILE_1" "$SCRIPT_OUTPUT_FILE_1"
+          /usr/bin/install -m 644 "$SCRIPT_INPUT_FILE_2" "$SCRIPT_OUTPUT_FILE_2"
         inputFiles:
           - "$(BUILT_PRODUCTS_DIR)/NoSleepPowerHelper"
           - "$(SRCROOT)/Configuration/com.octoii.nosleep.PowerHelper.plist"
+          - "$(SRCROOT)/Configuration/com.octoii.nosleep.ScreenSaverAgent.plist"
         outputFiles:
           - "$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/MacOS/NoSleepPowerHelper"
           - "$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Library/LaunchDaemons/com.octoii.nosleep.PowerHelper.plist"
+          - "$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Library/LaunchAgents/com.octoii.nosleep.ScreenSaverAgent.plist"
   NoSleepPowerHelper:
     type: tool
     platform: macOS
@@ -53,6 +63,18 @@ targets:
         INFOPLIST_FILE: Configuration/PowerHelper-Info.plist
         CREATE_INFOPLIST_SECTION_IN_BINARY: YES
         SKIP_INSTALL: YES
+  NoSleepScreenSaverAgent:
+    type: application
+    platform: macOS
+    sources:
+      - Sources/ScreenSaverAgent
+      - Sources/Shared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.octoii.nosleep.ScreenSaverAgent
+        INFOPLIST_FILE: Configuration/ScreenSaverAgent-Info.plist
+        CODE_SIGN_ENTITLEMENTS: Configuration/ScreenSaverAgent.entitlements
+        SKIP_INSTALL: YES
   NoSleepTests:
     type: bundle.unit-test
     platform: macOS
@@ -61,7 +83,8 @@ targets:
       - Sources/Shared/Command.swift
       - Sources/Shared/Mode.swift
       - Sources/Helper/PowerSystem.swift
-      - Sources/App/PowerHelperRegistration.swift
+      - Sources/ScreenSaverAgent/ScreenSaverPolicy.swift
+      - Sources/App/BundledServiceRegistration.swift
       - Sources/App/LoginItemRegistration.swift
       - Sources/App/MenuLanguage.swift
       - Sources/App/IdleDuration.swift

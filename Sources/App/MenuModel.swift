@@ -8,6 +8,7 @@ enum MenuAction {
     case authorizeHelper
     case openBackgroundItems
     case openLockScreenSettings
+    case openScreenSaverSettings
     case retry
 
     var title: LocalizedStringResource {
@@ -15,6 +16,7 @@ enum MenuAction {
         case .authorizeHelper: "Continue Setup"
         case .openBackgroundItems: "Open Background Items"
         case .openLockScreenSettings: "Open Lock Screen Settings"
+        case .openScreenSaverSettings: "Open Screen Saver Settings"
         case .retry: "Retry"
         }
     }
@@ -26,8 +28,6 @@ enum MenuStatus: Equatable {
     case setupHelper
     case approveHelper
     case helperRegistrationFailed
-    case lockPolicyRequired
-    case lockPolicyUnavailable
     case power(PowerModeStatus)
 
     var message: LocalizedStringResource {
@@ -37,8 +37,6 @@ enum MenuStatus: Equatable {
         case .setupHelper: "Background access is required."
         case .approveHelper: "Waiting for background approval."
         case .helperRegistrationFailed: "Could not register the power helper."
-        case .lockPolicyRequired: "Require a password immediately after the display turns off."
-        case .lockPolicyUnavailable: "Could not read the macOS lock screen policy."
         case .power(.off): "Off · works when plugged in"
         case .power(.active): "Active on external power."
         case .power(.battery): "Paused on battery."
@@ -56,10 +54,38 @@ enum MenuStatus: Equatable {
         switch self {
         case .setupHelper: .authorizeHelper
         case .approveHelper: .openBackgroundItems
-        case .lockPolicyRequired: .openLockScreenSettings
-        case .helperRegistrationFailed, .lockPolicyUnavailable, .power(.off), .power(.failed),
+        case .helperRegistrationFailed, .power(.off), .power(.failed),
              .power(.unavailable), .power(.busy), .power(.settingsChanged), .power(.existingOverride): .retry
         default: nil
+        }
+    }
+}
+
+enum IdleLockNotice: Equatable {
+    case passwordRequired
+    case passwordPolicyUnavailable
+    case setupScreenSaver
+    case approveScreenSaver
+    case screenSaverConflict
+    case restorePending
+
+    var message: LocalizedStringResource {
+        switch self {
+        case .passwordRequired: "Require a password immediately after the display turns off."
+        case .passwordPolicyUnavailable: "Could not read the macOS lock screen policy."
+        case .setupScreenSaver: "Allow NoSleep to adjust the system screen saver."
+        case .approveScreenSaver: "Waiting for screen saver background approval."
+        case .screenSaverConflict: "The system screen saver may lock your Mac earlier."
+        case .restorePending: "Restoring the previous screen saver delay…"
+        }
+    }
+
+    var action: MenuAction {
+        switch self {
+        case .passwordRequired, .passwordPolicyUnavailable: .openLockScreenSettings
+        case .setupScreenSaver: .authorizeHelper
+        case .approveScreenSaver: .openBackgroundItems
+        case .screenSaverConflict, .restorePending: .openScreenSaverSettings
         }
     }
 }
@@ -69,6 +95,7 @@ enum MenuStatus: Equatable {
 final class MenuModel {
     private(set) var enabled: Bool
     private(set) var status: MenuStatus = .power(.off)
+    private(set) var idleLockNotice: IdleLockNotice?
     private(set) var savedCount: Int
     private(set) var savedUnit: DurationUnit
     private(set) var language: MenuLanguage
@@ -77,11 +104,27 @@ final class MenuModel {
 
     @ObservationIgnored private let defaults: UserDefaults
     @ObservationIgnored private let helper = SMAppService.daemon(plistName: ServiceIdentity.daemonPlist)
+    @ObservationIgnored private let screenSaverAgent = SMAppService.agent(plistName: ServiceIdentity.screenSaverAgentPlist)
     @ObservationIgnored private let loginItem = SMAppService.mainApp
-    @ObservationIgnored private let client = PowerClient()
+    @ObservationIgnored private let client = BackgroundConnection<PowerServiceProtocol, PowerModeStatus>(
+        identifier: ServiceIdentity.helper,
+        interface: NSXPCInterface(with: PowerServiceProtocol.self),
+        options: .privileged,
+        unavailable: .unavailable
+    )
+    @ObservationIgnored private let screenSaver = BackgroundConnection<ScreenSaverServiceProtocol, ScreenSaverStatus>(
+        identifier: ServiceIdentity.screenSaverAgent,
+        interface: NSXPCInterface(with: ScreenSaverServiceProtocol.self),
+        unavailable: .unavailable
+    )
     @ObservationIgnored private let log = Logger(subsystem: ServiceIdentity.app, category: "Menu")
+    @ObservationIgnored private var powerMonitor: ExternalPowerMonitor?
+    @ObservationIgnored private var wakeTask: Task<Void, Never>?
     @ObservationIgnored private var applyTask: Task<Void, Never>?
+    @ObservationIgnored private var screenSaverAuthorization: Task<Void, Never>?
     @ObservationIgnored private var pendingRequest: ApplyRequest?
+    @ObservationIgnored private var needsScreenSaverRestore = false
+    @ObservationIgnored private var requestedPowerMinutes: Int?
     @ObservationIgnored private var revision = 0
 
     init(defaults: UserDefaults = .standard) {
@@ -109,14 +152,28 @@ final class MenuModel {
         )
 
         if enabled { apply() }
+        let monitor = ExternalPowerMonitor { [weak self] in
+            let lostExternalPower = !ExternalPowerMonitor.isOnAC()
+            Task { @MainActor in self?.recheckPower(restoringScreenSaver: lostExternalPower) }
+        }
+        if monitor.start() { powerMonitor = monitor }
+        let wakeEvents = NSWorkspace.shared.notificationCenter.notifications(named: NSWorkspace.didWakeNotification)
+        wakeTask = Task { [weak self] in
+            for await _ in wakeEvents {
+                guard let self else { return }
+                self.recheckPower(restoringScreenSaver: true)
+            }
+        }
         Task { [weak self] in
             while !Task.isCancelled {
                 try? await Task.sleep(for: .seconds(5))
                 guard let self else { return }
-                await self.refreshStatus()
+                self.poll()
             }
         }
     }
+
+    deinit { wakeTask?.cancel() }
 
     func setEnabled(_ value: Bool) {
         guard value != enabled else { return }
@@ -176,28 +233,44 @@ final class MenuModel {
     }
 
     func perform(_ action: MenuAction) {
-        guard enabled else { return }
         switch action {
         case .authorizeHelper, .openBackgroundItems, .retry:
-            apply(.authorize)
+            if enabled { apply(.authorize) }
         case .openLockScreenSettings:
-            if let url = URL(string: "x-apple.systempreferences:com.apple.Lock-Screen-Settings.extension") {
-                NSWorkspace.shared.open(url)
-            }
+            openSettings("com.apple.Lock-Screen-Settings.extension")
+        case .openScreenSaverSettings:
+            openSettings("com.apple.Wallpaper-Settings.extension?ScreenSaver")
         }
     }
 
-    private enum ApplyRequest {
+    private func openSettings(_ pane: String) {
+        if let url = URL(string: "x-apple.systempreferences:" + pane) { NSWorkspace.shared.open(url) }
+    }
+
+    private enum ApplyRequest: Int {
+        case poll
+        case powerChanged
         case refresh
         case authorize
     }
 
+    private func poll() {
+        if enabled || idleLockNotice == .restorePending { apply(.poll) }
+    }
+
+    private func recheckPower(restoringScreenSaver: Bool) {
+        guard enabled || idleLockNotice == .restorePending else { return }
+        needsScreenSaverRestore = needsScreenSaverRestore || restoringScreenSaver
+        apply(.powerChanged)
+    }
+
     private func apply(_ request: ApplyRequest = .refresh) {
+        if request == .poll, applyTask != nil { return }
         revision &+= 1
-        // A passive refresh must not consume an explicit request queued by the switch.
-        let wantsAuthorization = request == .authorize || pendingRequest == .authorize
-        pendingRequest = enabled && wantsAuthorization ? .authorize : .refresh
-        status = .checking
+        // A power change must not consume a newer duration or an explicit setup request.
+        let queued = pendingRequest ?? request
+        pendingRequest = enabled && queued.rawValue > request.rawValue ? queued : request
+        if request == .refresh || request == .authorize { status = .checking }
         guard applyTask == nil else { return }
         applyTask = Task { [weak self] in await self?.applyPending() }
     }
@@ -205,16 +278,33 @@ final class MenuModel {
     private func applyPending() async {
         while let request = pendingRequest {
             pendingRequest = nil
-            let newStatus = await reconcile(request)
-            if pendingRequest == nil { status = newStatus }
+            let requestRevision = revision
+            let mustRestore = needsScreenSaverRestore
+            needsScreenSaverRestore = false
+            var notice: IdleLockNotice?
+            if !enabled || mustRestore {
+                // Recover the prior screen saver session before starting another one or releasing system sleep.
+                notice = await restoreScreenSaver(checkAgent: mustRestore)
+                if mustRestore && notice != nil { needsScreenSaverRestore = true }
+            }
+            guard requestRevision == revision else { continue }
+            let power = await reconcilePower(request, revision: requestRevision)
+            guard requestRevision == revision else { continue }
+            if enabled && notice == nil {
+                notice = await reconcileIdleLock(power: power, request: request, revision: requestRevision)
+            }
+            if requestRevision == revision {
+                status = power
+                idleLockNotice = notice
+            }
         }
         applyTask = nil
     }
 
-    private func reconcile(_ request: ApplyRequest) async -> MenuStatus {
+    private func reconcilePower(_ request: ApplyRequest, revision requestRevision: Int) async -> MenuStatus {
         guard enabled else {
             if client.isConnected {
-                let result = await client.setMode(false, minutes: 0)
+                let result = await client.call { $0.setMode(false, displayMinutes: 0, reply: $1) }
                 client.close()
                 return .power(result)
             }
@@ -222,10 +312,11 @@ final class MenuModel {
         }
         guard ConnectionSigning.teamID() != nil else { return .signingRequired }
 
-        let readiness: PowerHelperRegistration.Readiness
+        let readiness: BundledServiceRegistration.Readiness
         do {
-            readiness = try PowerHelperRegistration.prepare(
+            readiness = try BundledServiceRegistration.prepare(
                 bundleURL: Bundle.main.bundleURL,
+                service: .powerHelper,
                 mayRequestAuthorization: request == .authorize,
                 status: { helper.status },
                 register: { try helper.register() },
@@ -252,44 +343,84 @@ final class MenuModel {
             break
         }
 
-        let requestRevision = revision
-        let policy = await Self.lockPolicy()
-        guard requestRevision == revision else { return .checking }
-        guard policy == .immediate else {
-            client.close()
-            return policy == .other ? .lockPolicyRequired : .lockPolicyUnavailable
-        }
         guard let minutes = savedUnit.totalMinutes(savedCount) else { return .power(.failed) }
-        return .power(await client.setMode(true, minutes: minutes))
+        if (request == .poll || request == .powerChanged), client.isConnected, requestedPowerMinutes == minutes {
+            let current = await client.call { $0.status(reply: $1) }
+            guard requestRevision == revision else { return .checking }
+            // A restarted helper has lost its in-memory request. Reapply the saved choice.
+            if current != .off && current != .unavailable { return .power(current) }
+        }
+        requestedPowerMinutes = minutes
+        return .power(await client.call { $0.setMode(true, displayMinutes: minutes, reply: $1) })
     }
 
-    private func refreshStatus() async {
-        guard enabled, applyTask == nil else { return }
-
-        switch status {
-        case .setupHelper, .approveHelper, .helperRegistrationFailed:
-            let readiness = PowerHelperRegistration.readiness(for: helper.status, bundleURL: Bundle.main.bundleURL)
-            if readiness == .ready || (readiness == .approvalRequired && status != .approveHelper) {
-                apply()
-            }
-            return
-        case .lockPolicyRequired:
-            let requestRevision = revision
-            let policy = await Self.lockPolicy()
-            if requestRevision == revision, policy == .immediate { apply() }
-            return
-        default:
-            break
+    private func reconcileIdleLock(
+        power: MenuStatus,
+        request: ApplyRequest,
+        revision requestRevision: Int
+    ) async -> IdleLockNotice? {
+        guard power == .power(.active) else { return await restoreScreenSaver() }
+        let lockPolicy = await Self.lockPolicy()
+        guard requestRevision == revision else { return nil }
+        guard lockPolicy == .immediate else {
+            if let restoration = await restoreScreenSaver() { return restoration }
+            return lockPolicy == .other ? .passwordRequired : .passwordPolicyUnavailable
         }
 
-        guard client.isConnected else { return }
-        let requestRevision = revision
-        let result = await client.status()
-        guard requestRevision == revision else { return }
-        if result == .unavailable && helper.status != .enabled {
-            apply()
-        } else {
-            status = .power(result)
+        let readiness: BundledServiceRegistration.Readiness
+        do {
+            readiness = try BundledServiceRegistration.prepare(
+                bundleURL: Bundle.main.bundleURL,
+                service: .screenSaverAgent,
+                mayRequestAuthorization: request == .authorize,
+                status: { screenSaverAgent.status },
+                register: { try screenSaverAgent.register() },
+                openApprovalSettings: openLoginItemsSettings
+            )
+        } catch {
+            let details = error as NSError
+            log.error("Screen saver agent registration failed (\(details.domain, privacy: .public) \(details.code, privacy: .public)).")
+            return .screenSaverConflict
+        }
+
+        switch readiness {
+        case .ready: break
+        case .setupRequired: return .setupScreenSaver
+        case .approvalRequired: return .approveScreenSaver
+        case .unavailable: return .screenSaverConflict
+        }
+
+        guard let minutes = savedUnit.totalMinutes(savedCount) else { return .screenSaverConflict }
+        // The app's duration can be larger than the Apple event's integer range.
+        let result = await screenSaver.call { $0.apply(minimumSeconds: minutes * 60, reply: $1) }
+        guard requestRevision == revision else { return nil }
+        switch result {
+        case .synchronized, .inactive: return nil
+        case .authorizationRequired:
+            if request == .authorize { requestScreenSaverAuthorization() }
+            return .setupScreenSaver
+        case .restorePending: return .restorePending
+        case .permissionDenied, .settingsChanged, .unavailable: return .screenSaverConflict
+        }
+    }
+
+    private func restoreScreenSaver(checkAgent: Bool = false) async -> IdleLockNotice? {
+        let checkRegisteredAgent = checkAgent || idleLockNotice == .restorePending
+        guard screenSaver.isConnected ||
+                (checkRegisteredAgent && screenSaverAgent.status == .enabled)
+        else { return idleLockNotice == .restorePending ? .restorePending : nil }
+        let result = await screenSaver.call { $0.restore(reply: $1) }
+        if result == .inactive { screenSaver.close() }
+        return result == .inactive ? nil : .restorePending
+    }
+
+    private func requestScreenSaverAuthorization() {
+        guard screenSaverAuthorization == nil else { return }
+        screenSaverAuthorization = Task { [weak self] in
+            guard let self else { return }
+            _ = await self.screenSaver.call(timeout: nil) { $0.requestAuthorization(reply: $1) }
+            self.screenSaverAuthorization = nil
+            self.poll()
         }
     }
 

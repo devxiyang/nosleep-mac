@@ -29,8 +29,20 @@ enum PowerModeStatus: String, Sendable {
     case inactiveUser
 }
 
+enum ScreenSaverStatus: String, Sendable {
+    case inactive
+    case synchronized
+    case authorizationRequired
+    case permissionDenied
+    case settingsChanged
+    case unavailable
+    case restorePending
+}
+
 enum ServiceIdentity {
     static let app = "com.octoii.nosleep"
     static let helper = app + ".PowerHelper"
     static let daemonPlist = helper + ".plist"
+    static let screenSaverAgent = app + ".ScreenSaverAgent"
+    static let screenSaverAgentPlist = screenSaverAgent + ".plist"
 }

@@ -39,3 +39,8 @@
 "Open Login Items" = "打開登入項目";
 "The login item is unavailable." = "無法使用登入項目。";
 "Could not update the login item." = "無法更新登入項目。";
+"Open Screen Saver Settings" = "打開螢幕保護程式設定";
+"Allow NoSleep to adjust the system screen saver." = "允許 NoSleep 同步系統螢幕保護程式的啟動時間。";
+"Waiting for screen saver background approval." = "等待核准螢幕保護程式背景元件。";
+"The system screen saver may lock your Mac earlier." = "系統螢幕保護程式可能會提早鎖定 Mac。";
+"Restoring the previous screen saver delay…" = "正在還原原本的螢幕保護程式啟動時間⋯";

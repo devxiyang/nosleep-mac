@@ -39,3 +39,8 @@
 "Open Login Items" = "ログイン項目を開く";
 "The login item is unavailable." = "ログイン項目を利用できません。";
 "Could not update the login item." = "ログイン項目を更新できませんでした。";
+"Open Screen Saver Settings" = "スクリーンセーバ設定を開く";
+"Allow NoSleep to adjust the system screen saver." = "NoSleep にシステムのスクリーンセーバ設定の変更を許可してください。";
+"Waiting for screen saver background approval." = "スクリーンセーバのバックグラウンド項目の許可を待っています。";
+"The system screen saver may lock your Mac earlier." = "システムのスクリーンセーバによって Mac が先にロックされることがあります。";
+"Restoring the previous screen saver delay…" = "スクリーンセーバの開始時間を元に戻しています…";

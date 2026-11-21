@@ -1,6 +1,5 @@
 import Darwin
 import Foundation
-import SystemConfiguration
 
 // The queue serializes XPC calls, disconnect handling, and power notifications.
 final class PowerDaemon: @unchecked Sendable {
@@ -74,7 +73,7 @@ final class PowerDaemon: @unchecked Sendable {
                 reply(PowerModeStatus.unavailable.rawValue)
                 return
             }
-            if enabled && !Self.isConsoleUser(user) {
+            if enabled && !ConsoleUser.isActive(user) {
                 self.policy.disconnect(client: client)
                 reply(PowerModeStatus.inactiveUser.rawValue)
                 return
@@ -85,7 +84,7 @@ final class PowerDaemon: @unchecked Sendable {
 
     func status(client: UUID, reply: @escaping ModeReply) {
         queue.async {
-            guard let user = self.clients[client], Self.isConsoleUser(user) else {
+            guard let user = self.clients[client], ConsoleUser.isActive(user) else {
                 self.policy.disconnect(client: client)
                 reply(PowerModeStatus.inactiveUser.rawValue)
                 return
@@ -95,15 +94,9 @@ final class PowerDaemon: @unchecked Sendable {
     }
 
     private func releaseWhenConsoleUserChanges() {
-        if let owner = policy.owner, let user = clients[owner], !Self.isConsoleUser(user) {
+        if let owner = policy.owner, let user = clients[owner], !ConsoleUser.isActive(user) {
             policy.disconnect(client: owner)
         }
-    }
-
-    private static func isConsoleUser(_ user: uid_t) -> Bool {
-        var uid: uid_t = 0
-        let name = SCDynamicStoreCopyConsoleUser(nil, &uid, nil) as String?
-        return name != nil && name != "loginwindow" && uid != 0 && user == uid
     }
 }
 

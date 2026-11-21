@@ -39,3 +39,8 @@
 "Open Login Items" = "Anmeldeobjekte öffnen";
 "The login item is unavailable." = "Das Anmeldeobjekt ist nicht verfügbar.";
 "Could not update the login item." = "Das Anmeldeobjekt konnte nicht aktualisiert werden.";
+"Open Screen Saver Settings" = "Bildschirmschoner-Einstellungen öffnen";
+"Allow NoSleep to adjust the system screen saver." = "Erlaube NoSleep, den System-Bildschirmschoner anzupassen.";
+"Waiting for screen saver background approval." = "Warten auf die Freigabe des Hintergrundobjekts für den Bildschirmschoner.";
+"The system screen saver may lock your Mac earlier." = "Der System-Bildschirmschoner kann deinen Mac früher sperren.";
+"Restoring the previous screen saver delay…" = "Die bisherige Wartezeit des Bildschirmschoners wird wiederhergestellt …";

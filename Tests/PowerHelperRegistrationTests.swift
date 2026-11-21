@@ -2,18 +2,30 @@ import Foundation
 import ServiceManagement
 import Testing
 
+@Test func screenSaverAgentUsesItsOwnBundledManifestForFirstRegistration() throws {
+    let bundle = try TemporaryBundle()
+    defer { bundle.remove() }
+    try bundle.addManifest()
+    #expect(BundledServiceRegistration.readiness(for: .notFound, bundleURL: bundle.url, service: .screenSaverAgent) == .unavailable)
+
+    let manifest = bundle.url.appending(path: BundledServiceRegistration.Service.screenSaverAgent.manifestPath)
+    try FileManager.default.createDirectory(at: manifest.deletingLastPathComponent(), withIntermediateDirectories: true)
+    try Data().write(to: manifest)
+    #expect(BundledServiceRegistration.readiness(for: .notFound, bundleURL: bundle.url, service: .screenSaverAgent) == .setupRequired)
+}
+
 @Test func firstRunNotFoundOffersSetupOnlyWhenTheDaemonIsBundled() throws {
     let bundle = try TemporaryBundle()
     defer { bundle.remove() }
 
-    #expect(PowerHelperRegistration.readiness(for: .notRegistered, bundleURL: bundle.url) == .setupRequired)
-    #expect(PowerHelperRegistration.readiness(for: .notFound, bundleURL: bundle.url) == .unavailable)
+    #expect(BundledServiceRegistration.readiness(for: .notRegistered, bundleURL: bundle.url, service: .powerHelper) == .setupRequired)
+    #expect(BundledServiceRegistration.readiness(for: .notFound, bundleURL: bundle.url, service: .powerHelper) == .unavailable)
 
     try bundle.addManifest()
 
-    #expect(PowerHelperRegistration.readiness(for: .notFound, bundleURL: bundle.url) == .setupRequired)
-    #expect(PowerHelperRegistration.readiness(for: .requiresApproval, bundleURL: bundle.url) == .approvalRequired)
-    #expect(PowerHelperRegistration.readiness(for: .enabled, bundleURL: bundle.url) == .ready)
+    #expect(BundledServiceRegistration.readiness(for: .notFound, bundleURL: bundle.url, service: .powerHelper) == .setupRequired)
+    #expect(BundledServiceRegistration.readiness(for: .requiresApproval, bundleURL: bundle.url, service: .powerHelper) == .approvalRequired)
+    #expect(BundledServiceRegistration.readiness(for: .enabled, bundleURL: bundle.url, service: .powerHelper) == .ready)
 }
 
 @Test func firstEnableRegistersThenOpensApprovalSettings() throws {
@@ -24,8 +36,9 @@ import Testing
     var status = SMAppService.Status.notFound
     var actions: [String] = []
 
-    let first = try PowerHelperRegistration.prepare(
+    let first = try BundledServiceRegistration.prepare(
         bundleURL: bundle.url,
+        service: .powerHelper,
         mayRequestAuthorization: true,
         status: { status },
         register: {
@@ -38,8 +51,9 @@ import Testing
     #expect(actions == ["register", "open"])
 
     status = .enabled
-    let approved = try PowerHelperRegistration.prepare(
+    let approved = try BundledServiceRegistration.prepare(
         bundleURL: bundle.url,
+        service: .powerHelper,
         mayRequestAuthorization: false,
         status: { status },
         register: { actions.append("register") },
@@ -55,15 +69,17 @@ import Testing
     try bundle.addManifest()
     var actions = 0
 
-    let waiting = try PowerHelperRegistration.prepare(
+    let waiting = try BundledServiceRegistration.prepare(
         bundleURL: bundle.url,
+        service: .powerHelper,
         mayRequestAuthorization: false,
         status: { .notFound },
         register: { actions += 1 },
         openApprovalSettings: { actions += 1 }
     )
-    let pending = try PowerHelperRegistration.prepare(
+    let pending = try BundledServiceRegistration.prepare(
         bundleURL: bundle.url,
+        service: .powerHelper,
         mayRequestAuthorization: false,
         status: { .requiresApproval },
         register: { actions += 1 },
@@ -78,8 +94,9 @@ import Testing
     let bundle = try TemporaryBundle()
     defer { bundle.remove() }
     var actions: [String] = []
-    let pending = try PowerHelperRegistration.prepare(
+    let pending = try BundledServiceRegistration.prepare(
         bundleURL: bundle.url,
+        service: .powerHelper,
         mayRequestAuthorization: true,
         status: { .requiresApproval },
         register: { actions.append("register") },
@@ -94,8 +111,9 @@ import Testing
     defer { bundle.remove() }
     try bundle.addManifest()
     var actions: [String] = []
-    let pending = try PowerHelperRegistration.prepare(
+    let pending = try BundledServiceRegistration.prepare(
         bundleURL: bundle.url,
+        service: .powerHelper,
         mayRequestAuthorization: true,
         status: { .notFound },
         register: { actions.append("register") },
@@ -113,8 +131,9 @@ import Testing
     var opened = false
 
     #expect(throws: RegistrationError.denied) {
-        try PowerHelperRegistration.prepare(
+        try BundledServiceRegistration.prepare(
             bundleURL: bundle.url,
+        service: .powerHelper,
             mayRequestAuthorization: true,
             status: { .notRegistered },
             register: { throw RegistrationError.denied },

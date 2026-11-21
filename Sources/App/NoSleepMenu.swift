@@ -21,8 +21,23 @@ struct NoSleepMenu: View {
 
                 Divider()
 
-                IdleDurationField(duration: IdleDuration(count: model.savedCount, unit: model.savedUnit)) { value in
-                    model.saveDuration(value.count, unit: value.unit)
+                VStack(alignment: .leading, spacing: 6) {
+                    IdleDurationField(duration: IdleDuration(count: model.savedCount, unit: model.savedUnit)) { value in
+                        model.saveDuration(value.count, unit: value.unit)
+                    }
+                    if let notice = model.idleLockNotice {
+                        Text(notice.message)
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
+                        Button {
+                            model.perform(notice.action)
+                        } label: {
+                            Text(notice.action.title)
+                        }
+                        .buttonStyle(.bordered)
+                        .controlSize(.small)
+                    }
                 }
 
                 Divider()

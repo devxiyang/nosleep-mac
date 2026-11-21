@@ -39,3 +39,8 @@
 "Open Login Items" = "Abrir ítems de inicio";
 "The login item is unavailable." = "El ítem de inicio no está disponible.";
 "Could not update the login item." = "No se pudo actualizar el ítem de inicio.";
+"Open Screen Saver Settings" = "Abrir ajustes del salvapantallas";
+"Allow NoSleep to adjust the system screen saver." = "Permite que NoSleep ajuste el salvapantallas del sistema.";
+"Waiting for screen saver background approval." = "Esperando la aprobación del componente en segundo plano del salvapantallas.";
+"The system screen saver may lock your Mac earlier." = "El salvapantallas del sistema puede bloquear el Mac antes.";
+"Restoring the previous screen saver delay…" = "Restaurando el tiempo anterior del salvapantallas…";

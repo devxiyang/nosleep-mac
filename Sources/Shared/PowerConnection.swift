@@ -8,6 +8,12 @@ typealias ModeReply = @Sendable (String) -> Void
     func status(reply: @escaping ModeReply)
 }
 
+@objc protocol ScreenSaverServiceProtocol {
+    func apply(minimumSeconds: Int, reply: @escaping ModeReply)
+    func restore(reply: @escaping ModeReply)
+    func requestAuthorization(reply: @escaping ModeReply)
+}
+
 enum ConnectionSigning {
     static func teamID() -> String? {
         var code: SecCode?

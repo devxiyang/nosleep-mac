@@ -39,3 +39,8 @@
 "Open Login Items" = "Open Login Items";
 "The login item is unavailable." = "The login item is unavailable.";
 "Could not update the login item." = "Could not update the login item.";
+"Open Screen Saver Settings" = "Open Screen Saver Settings";
+"Allow NoSleep to adjust the system screen saver." = "Allow NoSleep to adjust the system screen saver.";
+"Waiting for screen saver background approval." = "Waiting for screen saver background approval.";
+"The system screen saver may lock your Mac earlier." = "The system screen saver may lock your Mac earlier.";
+"Restoring the previous screen saver delay…" = "Restoring the previous screen saver delay…";

@@ -39,3 +39,8 @@
 "Open Login Items" = "打开登录项";
 "The login item is unavailable." = "登录项不可用。";
 "Could not update the login item." = "无法更新登录项。";
+"Open Screen Saver Settings" = "打开屏幕保护程序设置";
+"Allow NoSleep to adjust the system screen saver." = "允许 NoSleep 同步系统屏保时长。";
+"Waiting for screen saver background approval." = "等待批准屏保后台组件。";
+"The system screen saver may lock your Mac earlier." = "系统屏保可能提前锁屏。";
+"Restoring the previous screen saver delay…" = "正在恢复原来的屏保时长…";

@@ -27,7 +27,7 @@ final class BackgroundConnection<Endpoint, Status: RawRepresentable & Sendable> 
         connection = nil
     }
 
-    func call(timeout: TimeInterval? = 12, _ send: (Endpoint, @escaping ModeReply) -> Void) async -> Status {
+    func call(_ send: (Endpoint, @escaping ModeReply) -> Void) async -> Status {
         guard let current = connection ?? connect() else { return unavailable }
         let unavailable = self.unavailable
         let result: Status = await withCheckedContinuation { continuation in
@@ -38,11 +38,7 @@ final class BackgroundConnection<Endpoint, Status: RawRepresentable & Sendable> 
                 return
             }
             send(service) { raw in reply.finish(Status(rawValue: raw) ?? unavailable) }
-            if let timeout {
-                DispatchQueue.global().asyncAfter(deadline: .now() + timeout) {
-                    reply.finish(unavailable)
-                }
-            }
+            DispatchQueue.global().asyncAfter(deadline: .now() + 12) { reply.finish(unavailable) }
         }
         if result.rawValue == unavailable.rawValue && connection === current { close() }
         return result

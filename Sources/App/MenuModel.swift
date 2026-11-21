@@ -4,24 +4,6 @@ import Observation
 import OSLog
 import ServiceManagement
 
-enum MenuAction {
-    case authorizeHelper
-    case openBackgroundItems
-    case openLockScreenSettings
-    case openScreenSaverSettings
-    case retry
-
-    var title: LocalizedStringResource {
-        switch self {
-        case .authorizeHelper: "Continue Setup"
-        case .openBackgroundItems: "Open Background Items"
-        case .openLockScreenSettings: "Open Lock Screen Settings"
-        case .openScreenSaverSettings: "Open Screen Saver Settings"
-        case .retry: "Retry"
-        }
-    }
-}
-
 enum MenuStatus: Equatable {
     case checking
     case signingRequired
@@ -61,35 +43,6 @@ enum MenuStatus: Equatable {
     }
 }
 
-enum IdleLockNotice: Equatable {
-    case passwordRequired
-    case passwordPolicyUnavailable
-    case setupScreenSaver
-    case approveScreenSaver
-    case screenSaverConflict
-    case restorePending
-
-    var message: LocalizedStringResource {
-        switch self {
-        case .passwordRequired: "Require a password immediately after the display turns off."
-        case .passwordPolicyUnavailable: "Could not read the macOS lock screen policy."
-        case .setupScreenSaver: "Allow NoSleep to adjust the system screen saver."
-        case .approveScreenSaver: "Waiting for screen saver background approval."
-        case .screenSaverConflict: "The system screen saver may lock your Mac earlier."
-        case .restorePending: "Restoring the previous screen saver delay…"
-        }
-    }
-
-    var action: MenuAction {
-        switch self {
-        case .passwordRequired, .passwordPolicyUnavailable: .openLockScreenSettings
-        case .setupScreenSaver: .authorizeHelper
-        case .approveScreenSaver: .openBackgroundItems
-        case .screenSaverConflict, .restorePending: .openScreenSaverSettings
-        }
-    }
-}
-
 @MainActor
 @Observable
 final class MenuModel {
@@ -121,7 +74,7 @@ final class MenuModel {
     @ObservationIgnored private var powerMonitor: ExternalPowerMonitor?
     @ObservationIgnored private var wakeTask: Task<Void, Never>?
     @ObservationIgnored private var applyTask: Task<Void, Never>?
-    @ObservationIgnored private var screenSaverAuthorization: Task<Void, Never>?
+    @ObservationIgnored private var screenSaverAuthorization: ScreenSaverAuthorizationState = .notRequested
     @ObservationIgnored private var pendingRequest: ApplyRequest?
     @ObservationIgnored private var needsScreenSaverRestore = false
     @ObservationIgnored private var requestedPowerMinutes: Int?
@@ -236,10 +189,14 @@ final class MenuModel {
         switch action {
         case .authorizeHelper, .openBackgroundItems, .retry:
             if enabled { apply(.authorize) }
+        case .authorizeScreenSaver, .retryScreenSaverAuthorization:
+            if enabled { requestScreenSaverAuthorization() }
         case .openLockScreenSettings:
             openSettings("com.apple.Lock-Screen-Settings.extension")
         case .openScreenSaverSettings:
             openSettings("com.apple.Wallpaper-Settings.extension?ScreenSaver")
+        case .openAutomationSettings:
+            openSettings("com.apple.settings.PrivacySecurity.extension?Privacy_Automation")
         }
     }
 
@@ -249,7 +206,7 @@ final class MenuModel {
 
     private enum ApplyRequest: Int {
         case poll
-        case powerChanged
+        case systemStateChanged
         case refresh
         case authorize
     }
@@ -261,7 +218,7 @@ final class MenuModel {
     private func recheckPower(restoringScreenSaver: Bool) {
         guard enabled || idleLockNotice == .restorePending else { return }
         needsScreenSaverRestore = needsScreenSaverRestore || restoringScreenSaver
-        apply(.powerChanged)
+        apply(.systemStateChanged)
     }
 
     private func apply(_ request: ApplyRequest = .refresh) {
@@ -344,7 +301,7 @@ final class MenuModel {
         }
 
         guard let minutes = savedUnit.totalMinutes(savedCount) else { return .power(.failed) }
-        if (request == .poll || request == .powerChanged), client.isConnected, requestedPowerMinutes == minutes {
+        if (request == .poll || request == .systemStateChanged), client.isConnected, requestedPowerMinutes == minutes {
             let current = await client.call { $0.status(reply: $1) }
             guard requestRevision == revision else { return .checking }
             // A restarted helper has lost its in-memory request. Reapply the saved choice.
@@ -394,14 +351,13 @@ final class MenuModel {
         // The app's duration can be larger than the Apple event's integer range.
         let result = await screenSaver.call { $0.apply(minimumSeconds: minutes * 60, reply: $1) }
         guard requestRevision == revision else { return nil }
-        switch result {
-        case .synchronized, .inactive: return nil
-        case .authorizationRequired:
-            if request == .authorize { requestScreenSaverAuthorization() }
-            return .setupScreenSaver
-        case .restorePending: return .restorePending
-        case .permissionDenied, .settingsChanged, .unavailable: return .screenSaverConflict
+        if result == .authorizationRequired && request == .authorize {
+            requestScreenSaverAuthorization()
         }
+        if result == .synchronized && screenSaverAuthorization != .requesting {
+            screenSaverAuthorization = .notRequested
+        }
+        return IdleLockNotice.forScreenSaver(result, authorization: screenSaverAuthorization)
     }
 
     private func restoreScreenSaver(checkAgent: Bool = false) async -> IdleLockNotice? {
@@ -415,12 +371,17 @@ final class MenuModel {
     }
 
     private func requestScreenSaverAuthorization() {
-        guard screenSaverAuthorization == nil else { return }
-        screenSaverAuthorization = Task { [weak self] in
+        guard screenSaverAuthorization != .requesting else { return }
+        screenSaverAuthorization = .requesting
+        idleLockNotice = .awaitingAutomation
+        Task { [weak self] in
+            // macOS attributes the consent to the main app. Its dialog can wait for user input.
+            let result = await Task.detached(priority: .userInitiated) {
+                SystemScreenSaverSettings().requestAuthorization()
+            }.value
             guard let self else { return }
-            _ = await self.screenSaver.call(timeout: nil) { $0.requestAuthorization(reply: $1) }
-            self.screenSaverAuthorization = nil
-            self.poll()
+            self.screenSaverAuthorization = .finished(result)
+            if self.enabled { self.apply(.systemStateChanged) }
         }
     }
 

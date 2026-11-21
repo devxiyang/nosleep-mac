@@ -44,3 +44,9 @@
 "Waiting for screen saver background approval." = "スクリーンセーバのバックグラウンド項目の許可を待っています。";
 "The system screen saver may lock your Mac earlier." = "システムのスクリーンセーバによって Mac が先にロックされることがあります。";
 "Restoring the previous screen saver delay…" = "スクリーンセーバの開始時間を元に戻しています…";
+"Waiting for macOS automation approval…" = "macOS のオートメーションの許可を待っています…";
+"macOS denied access to System Events." = "macOS がシステムイベントへのアクセスを拒否しました。";
+"Check System Events access in Automation settings." = "「オートメーション」でシステムイベントへのアクセスを確認してください。";
+"Could not request System Events access." = "システムイベントへのアクセスを要求できませんでした。";
+"Retry Authorization" = "許可を再度リクエスト";
+"Open Automation Settings" = "オートメーション設定を開く";

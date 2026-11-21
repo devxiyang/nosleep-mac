@@ -7,8 +7,8 @@ options:
 settings:
   base:
     SWIFT_VERSION: "6.0"
-    MARKETING_VERSION: "0.1.7"
-    CURRENT_PROJECT_VERSION: "8"
+    MARKETING_VERSION: "0.1.8"
+    CURRENT_PROJECT_VERSION: "9"
     CODE_SIGN_STYLE: Automatic
     ENABLE_HARDENED_RUNTIME: YES
 targets:
@@ -18,10 +18,12 @@ targets:
     sources:
       - Sources/App
       - Sources/Shared
+      - Sources/ScreenSaverAutomation
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.octoii.nosleep
         INFOPLIST_FILE: Configuration/NoSleep-Info.plist
+        CODE_SIGN_ENTITLEMENTS: Configuration/ScreenSaverAutomation.entitlements
         ENABLE_USER_SCRIPT_SANDBOXING: YES
     dependencies:
       - target: NoSleepPowerHelper
@@ -69,11 +71,12 @@ targets:
     sources:
       - Sources/ScreenSaverAgent
       - Sources/Shared
+      - Sources/ScreenSaverAutomation
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.octoii.nosleep.ScreenSaverAgent
         INFOPLIST_FILE: Configuration/ScreenSaverAgent-Info.plist
-        CODE_SIGN_ENTITLEMENTS: Configuration/ScreenSaverAgent.entitlements
+        CODE_SIGN_ENTITLEMENTS: Configuration/ScreenSaverAutomation.entitlements
         SKIP_INSTALL: YES
   NoSleepTests:
     type: bundle.unit-test
@@ -84,7 +87,9 @@ targets:
       - Sources/Shared/Mode.swift
       - Sources/Helper/PowerSystem.swift
       - Sources/ScreenSaverAgent/ScreenSaverPolicy.swift
+      - Sources/ScreenSaverAutomation/ScreenSaverSettings.swift
       - Sources/App/BundledServiceRegistration.swift
+      - Sources/App/IdleLockNotice.swift
       - Sources/App/LoginItemRegistration.swift
       - Sources/App/MenuLanguage.swift
       - Sources/App/IdleDuration.swift

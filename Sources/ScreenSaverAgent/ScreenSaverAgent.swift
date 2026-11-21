@@ -4,14 +4,13 @@ import Foundation
 final class ScreenSaverAgent: @unchecked Sendable {
     private let queue = DispatchQueue(label: ServiceIdentity.screenSaverAgent)
     private let policy: ScreenSaverPolicy
-    private let settings = SystemScreenSaverSettings()
     private var clients: Set<UUID> = []
     private var powerMonitoringAvailable = false
     private var timer: DispatchSourceTimer?
 
     init() {
         policy = ScreenSaverPolicy(
-            settings: settings,
+            settings: SystemScreenSaverSettings(),
             journal: ScreenSaverFileJournal(),
             isEligible: Self.isEligible
         )
@@ -70,20 +69,6 @@ final class ScreenSaverAgent: @unchecked Sendable {
             let result = self.policy.release(client: client)
             self.updateMonitoring()
             reply(result.rawValue)
-        }
-    }
-
-    func requestAuthorization(client: UUID, reply: @escaping ModeReply) {
-        queue.async {
-            guard self.clients.contains(client), Self.isEligible() || self.policy.restorePending else {
-                reply(ScreenSaverStatus.inactive.rawValue)
-                return
-            }
-            // The system prompt can wait indefinitely. Keep power and restoration work on the serial queue.
-            let settings = self.settings
-            DispatchQueue.global(qos: .userInitiated).async {
-                reply(settings.authorize().rawValue)
-            }
         }
     }
 
@@ -148,9 +133,5 @@ private final class ScreenSaverEndpoint: NSObject, ScreenSaverServiceProtocol {
 
     func restore(reply: @escaping ModeReply) {
         agent.restore(client: client, reply: reply)
-    }
-
-    func requestAuthorization(reply: @escaping ModeReply) {
-        agent.requestAuthorization(client: client, reply: reply)
     }
 }

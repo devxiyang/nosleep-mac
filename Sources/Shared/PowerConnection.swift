@@ -11,7 +11,6 @@ typealias ModeReply = @Sendable (String) -> Void
 @objc protocol ScreenSaverServiceProtocol {
     func apply(minimumSeconds: Int, reply: @escaping ModeReply)
     func restore(reply: @escaping ModeReply)
-    func requestAuthorization(reply: @escaping ModeReply)
 }
 
 enum ConnectionSigning {

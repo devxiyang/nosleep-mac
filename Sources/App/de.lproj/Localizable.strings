@@ -44,3 +44,9 @@
 "Waiting for screen saver background approval." = "Warten auf die Freigabe des Hintergrundobjekts für den Bildschirmschoner.";
 "The system screen saver may lock your Mac earlier." = "Der System-Bildschirmschoner kann deinen Mac früher sperren.";
 "Restoring the previous screen saver delay…" = "Die bisherige Wartezeit des Bildschirmschoners wird wiederhergestellt …";
+"Waiting for macOS automation approval…" = "Warten auf die Automatisierungsfreigabe von macOS …";
+"macOS denied access to System Events." = "macOS hat den Zugriff auf System Events verweigert.";
+"Check System Events access in Automation settings." = "Prüfe unter „Automation“ den Zugriff auf System Events.";
+"Could not request System Events access." = "Der Zugriff auf System Events konnte nicht angefragt werden.";
+"Retry Authorization" = "Erneut um Freigabe bitten";
+"Open Automation Settings" = "Automationseinstellungen öffnen";

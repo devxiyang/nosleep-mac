@@ -44,3 +44,9 @@
 "Waiting for screen saver background approval." = "等待核准螢幕保護程式背景元件。";
 "The system screen saver may lock your Mac earlier." = "系統螢幕保護程式可能會提早鎖定 Mac。";
 "Restoring the previous screen saver delay…" = "正在還原原本的螢幕保護程式啟動時間⋯";
+"Waiting for macOS automation approval…" = "等待 macOS 自動化授權⋯";
+"macOS denied access to System Events." = "macOS 已拒絕存取「系統事件」。";
+"Check System Events access in Automation settings." = "請在「自動化」中確認「系統事件」的存取權限。";
+"Could not request System Events access." = "無法要求「系統事件」的存取權限。";
+"Retry Authorization" = "重試授權";
+"Open Automation Settings" = "打開自動化設定";

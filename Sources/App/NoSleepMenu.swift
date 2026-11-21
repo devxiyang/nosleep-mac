@@ -30,13 +30,15 @@ struct NoSleepMenu: View {
                             .font(.caption)
                             .foregroundStyle(.secondary)
                             .fixedSize(horizontal: false, vertical: true)
-                        Button {
-                            model.perform(notice.action)
-                        } label: {
-                            Text(notice.action.title)
+                        if let action = notice.action {
+                            Button {
+                                model.perform(action)
+                            } label: {
+                                Text(action.title)
+                            }
+                            .buttonStyle(.bordered)
+                            .controlSize(.small)
                         }
-                        .buttonStyle(.bordered)
-                        .controlSize(.small)
                     }
                 }
 

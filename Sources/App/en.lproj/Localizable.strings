@@ -44,3 +44,9 @@
 "Waiting for screen saver background approval." = "Waiting for screen saver background approval.";
 "The system screen saver may lock your Mac earlier." = "The system screen saver may lock your Mac earlier.";
 "Restoring the previous screen saver delay…" = "Restoring the previous screen saver delay…";
+"Waiting for macOS automation approval…" = "Waiting for macOS automation approval…";
+"macOS denied access to System Events." = "macOS denied access to System Events.";
+"Check System Events access in Automation settings." = "Check System Events access in Automation settings.";
+"Could not request System Events access." = "Could not request System Events access.";
+"Retry Authorization" = "Retry Authorization";
+"Open Automation Settings" = "Open Automation Settings";

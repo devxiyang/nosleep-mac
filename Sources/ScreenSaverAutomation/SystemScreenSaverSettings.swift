@@ -1,10 +1,12 @@
 import AppKit
 import Carbon
 import Foundation
+import OSLog
 
 struct SystemScreenSaverSettings: ScreenSaverSettings, Sendable {
     private static let systemEventsID = "com.apple.systemevents"
     private static let systemEventsURL = URL(fileURLWithPath: "/System/Library/CoreServices/System Events.app")
+    private static let log = Logger(subsystem: ServiceIdentity.app, category: "Screen Saver")
     // The property codes are declared in the installed System Events scripting dictionary.
     private static let preferencesCode: DescType = 0x73737670 // ssvp
     private static let delayCode: DescType = 0x646C7969 // dlyi
@@ -22,17 +24,23 @@ struct SystemScreenSaverSettings: ScreenSaverSettings, Sendable {
         _ = try send(AEEventID(kAESetData), value: NSAppleEventDescriptor(int32: value))
     }
 
-    func authorize() -> ScreenSaverStatus {
+    func requestAuthorization() -> ScreenSaverAuthorizationResult {
         do {
             let target = try address()
-            guard let descriptor = target.aeDesc else { return .unavailable }
+            guard let descriptor = target.aeDesc else { return .failed }
+            // Request consent for this target even if a particular event is exempt.
             let result = AEDeterminePermissionToAutomateTarget(
-                descriptor, AEEventClass(kAECoreSuite), AEEventID(kAESetData), true
+                descriptor, AEEventClass(typeWildCard), AEEventID(typeWildCard), true
             )
-            if result == noErr { return .synchronized }
-            return Self.accessError(Int(result)).status
+            switch result {
+            case noErr: return .granted
+            case OSStatus(errAEEventNotPermitted): return .denied
+            default:
+                Self.log.error("System Events authorization failed (\(result, privacy: .public)).")
+                return .failed
+            }
         } catch {
-            return .unavailable
+            return .failed
         }
     }
 

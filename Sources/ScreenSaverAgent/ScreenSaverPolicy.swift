@@ -1,10 +1,5 @@
 import Foundation
 
-protocol ScreenSaverSettings {
-    func idleSeconds() throws -> Int
-    func setIdleSeconds(_ seconds: Int) throws
-}
-
 struct ScreenSaverRecovery: Codable, Equatable {
     let originalSeconds: Int
     let writtenValues: [Int]
@@ -14,20 +9,6 @@ protocol ScreenSaverRecoveryJournal {
     func load() throws -> ScreenSaverRecovery?
     func save(_ recovery: ScreenSaverRecovery) throws
     func clear() throws
-}
-
-enum ScreenSaverAccessError: Error {
-    case authorizationRequired
-    case permissionDenied
-    case unavailable
-
-    var status: ScreenSaverStatus {
-        switch self {
-        case .authorizationRequired: .authorizationRequired
-        case .permissionDenied: .permissionDenied
-        case .unavailable: .unavailable
-        }
-    }
 }
 
 // All operations run on the user agent's serial queue.

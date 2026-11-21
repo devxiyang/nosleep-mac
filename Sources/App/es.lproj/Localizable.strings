@@ -50,3 +50,5 @@
 "Could not request System Events access." = "No se pudo solicitar acceso a Eventos del Sistema.";
 "Retry Authorization" = "Reintentar autorización";
 "Open Automation Settings" = "Abrir ajustes de Automatización";
+"Allow Local Agent Control" = "Permitir el control por agentes locales";
+"Could not start local Agent control." = "No se pudo iniciar el control por agentes locales.";

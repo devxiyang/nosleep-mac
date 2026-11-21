@@ -6,6 +6,26 @@
 
 NoSleep 使用 macOS 的即时锁屏机制。请在系统设置的「锁屏」中选择显示器关闭后立即要求密码。接电保活期间，NoSleep 会把过早的自动屏保推迟到选定的空闲时长，拔电或退出时恢复原时长。重新接电或唤醒后会按当前供电状态同步。
 
+## 本地 MCP
+
+打开 NoSleep，在齿轮设置中开启「允许本地 Agent 控制」。使用 `mcpServers` 格式的客户端可以这样配置。
+
+```json
+{
+  "mcpServers": {
+    "nosleep": {
+      "command": "/Applications/NoSleep.app/Contents/MacOS/NoSleepMCP"
+    }
+  }
+}
+```
+
+- `get_status` 读取供电来源、当前设置、保活状态和空闲锁屏状态。
+- `set_keep_awake_on_ac` 接收布尔参数 `enabled`，更改菜单上的接电保活开关。
+- `set_idle_lock_after` 接收正整数 `minutes`，更改菜单上的空闲熄屏与锁屏时长。
+
+两个写入工具保存持久设置。结果中的 `saved` 表示设置已保存，`keep_awake_status` 和 `idle_lock_status` 表示实际状态。状态为 `applying` 时可用 `get_status` 查询进度。macOS 需要用户授权时，菜单会提供对应操作。
+
 ## 开发
 
 用 Xcode 打开 NoSleep.xcodeproj，选择 NoSleep scheme。也可以运行项目的 Codex Run 操作，或用脚本仅编译应用和后台组件。

@@ -29,6 +29,12 @@ enum PowerModeStatus: String, Sendable {
     case inactiveUser
 }
 
+enum PowerSource: String, Codable, Sendable {
+    case ac
+    case battery
+    case unknown
+}
+
 enum ScreenSaverStatus: String, Sendable {
     case inactive
     case synchronized

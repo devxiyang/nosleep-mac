@@ -8,16 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		060AC5934EB44560440B0441 /* SystemScreenSaverSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D9B480AE3E16FCC9B75992 /* SystemScreenSaverSettings.swift */; };
+		117CC378C28187A010F9C049 /* AgentControlSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1C29B1399C2EAF0FAA4C8A /* AgentControlSocket.swift */; };
 		167FEEA47F3AFCE2A45167EC /* IdleLockNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = F346479DD3AC79601754ACC5 /* IdleLockNotice.swift */; };
+		18F519FAA3E09406D5254BA9 /* AgentControlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43C09A12A3CD9BE7F9E321A4 /* AgentControlTests.swift */; };
 		235380B6AFA6E1AF8E55DF92 /* MenuLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3A2049DB0DFF72A98E379 /* MenuLanguage.swift */; };
 		23D210CF3951F987646FEA59 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD9DCD8DF86ABDE8D8D3032 /* Command.swift */; };
 		25D7FE4C4AADC871BF5188AE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A8B5AB72298342ECAACBFE32 /* InfoPlist.strings */; };
 		2B0D2A22C37141230DCE9115 /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C337C92C38D1AD854954B /* Mode.swift */; };
+		2B703A34D82BB6D415BDF0B1 /* MCP in Frameworks */ = {isa = PBXBuildFile; productRef = 26F1459115BABF533A83702A /* MCP */; };
 		2BEE6E1ECF0F5560BF1A2AE2 /* ConsoleUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AFC7ADD0D3178E62DA0785 /* ConsoleUser.swift */; };
 		3184C76D8451743BB9047794 /* ScreenSaverAuthorizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EAAF16A9AAF44DC8A34BBA9 /* ScreenSaverAuthorizationTests.swift */; };
+		325FB5C88A4FAED4030F02FE /* AgentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C79E170EF592E42DFF872D0 /* AgentControl.swift */; };
 		3311957ECD73D83FDFEB6A43 /* SystemScreenSaverSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D9B480AE3E16FCC9B75992 /* SystemScreenSaverSettings.swift */; };
 		3315CCA0B26C6A283DB6576E /* PowerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D44B1A473A29F7747B226B /* PowerSystem.swift */; };
 		377D1F79D0713950844397E1 /* ScreenSaverSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35A12053E39E3B582EEBC86 /* ScreenSaverSettings.swift */; };
+		3ADE08CEB3F0A5F8C520FB69 /* AgentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C79E170EF592E42DFF872D0 /* AgentControl.swift */; };
 		3DB08E6A05B34D6E3AE519EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE47F2D5F0EAB91E2FF86058 /* Assets.xcassets */; };
 		42BC5D9B6BC8C0C72CB44DEA /* NoSleepMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6DF4E93C2C12F35F777BC3 /* NoSleepMenu.swift */; };
 		42DE9F84805A14B8C8C2FF48 /* ScreenSaverPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3615B08791848F1E07F3E03 /* ScreenSaverPolicy.swift */; };
@@ -32,6 +37,7 @@
 		5E48514724F721020442B726 /* IdleDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152A125664BC49201FBE21C7 /* IdleDuration.swift */; };
 		617764593E36C4F1F32D72F0 /* PowerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D44B1A473A29F7747B226B /* PowerSystem.swift */; };
 		6399706D2F545F88B714600B /* IdleDurationField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BB1825E0E663529E74FB56C /* IdleDurationField.swift */; };
+		652E3B15053D14E6F65DD13A /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C337C92C38D1AD854954B /* Mode.swift */; };
 		6A7EB744049E6626CB48B9F9 /* BundledServiceRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DA4231420FC48228EA0525 /* BundledServiceRegistration.swift */; };
 		6A9623674EBEC0576CA9A1F1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E88214F711E118E77692FEFE /* Localizable.strings */; };
 		6C7B534944E98F3F6E98A49D /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C337C92C38D1AD854954B /* Mode.swift */; };
@@ -40,18 +46,23 @@
 		75470817DAEB7CCAB61CCA48 /* MenuModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8D873F8642419BE4E280ACB /* MenuModel.swift */; };
 		75A0E01690C7582D18F860C9 /* NoSleepApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89BA8AB83B1B67648BB5B30B /* NoSleepApp.swift */; };
 		776A265FCEBD0BAB9933039C /* ScreenSaverFileJournal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03409A11FE49ADF46251733D /* ScreenSaverFileJournal.swift */; };
+		77E47247620C7E8B48093D68 /* AgentControlSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1C29B1399C2EAF0FAA4C8A /* AgentControlSocket.swift */; };
+		7AE7E82451339B9CE1AA234C /* AgentControlServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC009DD1863605DAD4EDD3D /* AgentControlServer.swift */; };
 		7F178CD8C25E8EDABE1C6CA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A8B5AB72298342ECAACBFE32 /* InfoPlist.strings */; };
 		855A0133BDDFEAE0B5AFF4D1 /* MenuPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FAA60E6020C4D59E0BB2C8E /* MenuPreferencesTests.swift */; };
 		8E7A41EC77C9E868E5213256 /* ScreenSaverPolicyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5638A8054D1BB612AA707512 /* ScreenSaverPolicyTests.swift */; };
 		922642B8BE57BA5D40974B48 /* LoginItemRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE176624B77620CC00531C9 /* LoginItemRegistration.swift */; };
+		93099778A0C755F5C6806357 /* AgentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C79E170EF592E42DFF872D0 /* AgentControl.swift */; };
 		946CDD1C6CF0507842042B32 /* PowerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24B486B8246EB5DA755FB74 /* PowerConnection.swift */; };
 		97F3B7D1C9EA3667B019A29B /* BackgroundConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413D551F8BA686CFCCCE44D3 /* BackgroundConnection.swift */; };
 		9CA69AAFE9B76E6B2C482C66 /* PowerPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086250DAFD7D1F344C5DBB7F /* PowerPolicy.swift */; };
+		A38AA2D59AD07A69D59B05D5 /* NoSleepMCP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD9047D8DB488F864FF0DF6 /* NoSleepMCP.swift */; };
 		A3DB648C520815ABFAC35A7D /* ExternalPowerMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D36BBCF4AC89A9E3931E39 /* ExternalPowerMonitor.swift */; };
 		A85F79884FB7EC1EAF0AC88C /* PowerHelperRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A922F8C3F41DDAB89BBF6322 /* PowerHelperRegistrationTests.swift */; };
 		AC6D15D895FA5A018B49B2AC /* IdleDuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152A125664BC49201FBE21C7 /* IdleDuration.swift */; };
 		ACCD87C4011B521224408E22 /* PowerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24B486B8246EB5DA755FB74 /* PowerConnection.swift */; };
 		AE17F18D1D8C60AC2103D26A /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD9DCD8DF86ABDE8D8D3032 /* Command.swift */; };
+		B07D2CDA74BC511AC3C2816F /* ThirdPartyNotices.txt in Resources */ = {isa = PBXBuildFile; fileRef = FEBDE7C7B6802458E86842DF /* ThirdPartyNotices.txt */; };
 		B158E70730D3BC71755B047D /* ScreenSaverSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35A12053E39E3B582EEBC86 /* ScreenSaverSettings.swift */; };
 		B28B30D41A8FE9E56B4FFDA9 /* MenuLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AF3A2049DB0DFF72A98E379 /* MenuLanguage.swift */; };
 		B2E11B0AD065CBC495CE37F6 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD9DCD8DF86ABDE8D8D3032 /* Command.swift */; };
@@ -66,9 +77,11 @@
 		D93082A9B625DD9A6B25FAC9 /* LoginItemRegistrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8058613AF03F2E472E544B27 /* LoginItemRegistrationTests.swift */; };
 		DB017608819A670F2DBD6B3E /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFBEBDDC3B063D3C3408A6C1 /* main.swift */; };
 		DDA1557E17DE6DED8E16ACD4 /* LoginItemRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CE176624B77620CC00531C9 /* LoginItemRegistration.swift */; };
+		DDEA2A53032950385955AC8B /* AgentControlSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF1C29B1399C2EAF0FAA4C8A /* AgentControlSocket.swift */; };
 		E00C3940D50279319AC349F5 /* ExternalPowerMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D36BBCF4AC89A9E3931E39 /* ExternalPowerMonitor.swift */; };
 		ED698478FA034856C5DC5B65 /* PowerOverride.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA22B39ED43021F36A598A1 /* PowerOverride.swift */; };
 		EEB7D368D18F28E7E78CC526 /* PowerConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24B486B8246EB5DA755FB74 /* PowerConnection.swift */; };
+		EF5317EF6935ECBDB9880381 /* AgentControlServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC009DD1863605DAD4EDD3D /* AgentControlServer.swift */; };
 		EFC173730BED3BBDD7EC0596 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CD9DCD8DF86ABDE8D8D3032 /* Command.swift */; };
 		F5798BA7775D70E994051226 /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5C337C92C38D1AD854954B /* Mode.swift */; };
 		F9383EA4C1A59BB89A9CD230 /* MenuSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBE175C6DE365897AD15BD3 /* MenuSettings.swift */; };
@@ -89,6 +102,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 825BF3B96E221E42A7F5D08D;
 			remoteInfo = NoSleepPowerHelper;
+		};
+		998B142374466F8D56711B13 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B8EC7F62A25BEB279BD80F4F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 91777AF2E885A0D1E4F8EFC7;
+			remoteInfo = NoSleepMCP;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -118,12 +138,16 @@
 		299F2E257BFA439F7709B60D /* ScreenSaverAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSaverAgent.swift; sourceTree = "<group>"; };
 		2D18A173DE535A26D9F83687 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		336A4862EBC643A547D4EFAD /* PowerPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerPolicyTests.swift; sourceTree = "<group>"; };
+		3BD9047D8DB488F864FF0DF6 /* NoSleepMCP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSleepMCP.swift; sourceTree = "<group>"; };
 		413D551F8BA686CFCCCE44D3 /* BackgroundConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundConnection.swift; sourceTree = "<group>"; };
+		43C09A12A3CD9BE7F9E321A4 /* AgentControlTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentControlTests.swift; sourceTree = "<group>"; };
 		4BB1825E0E663529E74FB56C /* IdleDurationField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleDurationField.swift; sourceTree = "<group>"; };
 		4EA185139C7B9DDBD2EAA4F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4FE82A1DB87C9C14E7BC0CE5 /* NoSleepMCP */ = {isa = PBXFileReference; includeInIndex = 0; path = NoSleepMCP; sourceTree = BUILT_PRODUCTS_DIR; };
 		50903EC6CBC9982623D62CC2 /* FileRecoveryJournal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileRecoveryJournal.swift; sourceTree = "<group>"; };
 		538B17A62A3458D37C7AFF00 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5638A8054D1BB612AA707512 /* ScreenSaverPolicyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSaverPolicyTests.swift; sourceTree = "<group>"; };
+		5C79E170EF592E42DFF872D0 /* AgentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentControl.swift; sourceTree = "<group>"; };
 		5EAAF16A9AAF44DC8A34BBA9 /* ScreenSaverAuthorizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSaverAuthorizationTests.swift; sourceTree = "<group>"; };
 		61A5F48CC345E334AA184B53 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		69DA4231420FC48228EA0525 /* BundledServiceRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledServiceRegistration.swift; sourceTree = "<group>"; };
@@ -148,6 +172,7 @@
 		C16E41929D7247C57302BEC0 /* NoSleep.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoSleep.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C24B486B8246EB5DA755FB74 /* PowerConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerConnection.swift; sourceTree = "<group>"; };
 		CF6D7FA5332323D1D10CC2FF /* BackgroundConnectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundConnectionTests.swift; sourceTree = "<group>"; };
+		CFC009DD1863605DAD4EDD3D /* AgentControlServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentControlServer.swift; sourceTree = "<group>"; };
 		D0D5FE0526A76640E4BFF1B9 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D3615B08791848F1E07F3E03 /* ScreenSaverPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSaverPolicy.swift; sourceTree = "<group>"; };
 		D8D873F8642419BE4E280ACB /* MenuModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuModel.swift; sourceTree = "<group>"; };
@@ -157,13 +182,34 @@
 		E1AFC7ADD0D3178E62DA0785 /* ConsoleUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleUser.swift; sourceTree = "<group>"; };
 		EA6DF4E93C2C12F35F777BC3 /* NoSleepMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoSleepMenu.swift; sourceTree = "<group>"; };
 		ECA22B39ED43021F36A598A1 /* PowerOverride.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerOverride.swift; sourceTree = "<group>"; };
+		EF1C29B1399C2EAF0FAA4C8A /* AgentControlSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AgentControlSocket.swift; sourceTree = "<group>"; };
 		EFBEBDDC3B063D3C3408A6C1 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		F346479DD3AC79601754ACC5 /* IdleLockNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleLockNotice.swift; sourceTree = "<group>"; };
 		F6D44B1A473A29F7747B226B /* PowerSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerSystem.swift; sourceTree = "<group>"; };
 		FE47F2D5F0EAB91E2FF86058 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FEBDE7C7B6802458E86842DF /* ThirdPartyNotices.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ThirdPartyNotices.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFrameworksBuildPhase section */
+		C7873E276BB1700761B6DF0E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B703A34D82BB6D415BDF0B1 /* MCP in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
+		092E22382D6EE8AF17D5928F /* NoSleepMCP */ = {
+			isa = PBXGroup;
+			children = (
+				3BD9047D8DB488F864FF0DF6 /* NoSleepMCP.swift */,
+			);
+			path = NoSleepMCP;
+			sourceTree = "<group>";
+		};
 		142CC21A789499819095F9AD /* App */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,12 +230,24 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		1E48127ABB60675DC7FFD6D8 /* AgentControl */ = {
+			isa = PBXGroup;
+			children = (
+				5C79E170EF592E42DFF872D0 /* AgentControl.swift */,
+				CFC009DD1863605DAD4EDD3D /* AgentControlServer.swift */,
+				EF1C29B1399C2EAF0FAA4C8A /* AgentControlSocket.swift */,
+			);
+			path = AgentControl;
+			sourceTree = "<group>";
+		};
 		4443730CE9EB5C7488019588 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				1E48127ABB60675DC7FFD6D8 /* AgentControl */,
 				142CC21A789499819095F9AD /* App */,
 				87F136FE0BB5661F0051EF05 /* Core */,
 				AB39E93B47F3FDFEC7ACBA34 /* Helper */,
+				092E22382D6EE8AF17D5928F /* NoSleepMCP */,
 				E1CFB920E996E9DF51646E01 /* ScreenSaverAgent */,
 				D23E2657F9854AFB1373DD3F /* ScreenSaverAutomation */,
 				BC444BDB59BC49C4FCDDFE84 /* Shared */,
@@ -209,6 +267,7 @@
 		96F618FA97579F547EDC5EF4 = {
 			isa = PBXGroup;
 			children = (
+				FEBDE7C7B6802458E86842DF /* ThirdPartyNotices.txt */,
 				4443730CE9EB5C7488019588 /* Sources */,
 				B653E6790A06523B980397CA /* Tests */,
 				FDAE10967FB217E58F59262E /* Products */,
@@ -229,6 +288,7 @@
 		B653E6790A06523B980397CA /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				43C09A12A3CD9BE7F9E321A4 /* AgentControlTests.swift */,
 				CF6D7FA5332323D1D10CC2FF /* BackgroundConnectionTests.swift */,
 				8058613AF03F2E472E544B27 /* LoginItemRegistrationTests.swift */,
 				6FAA60E6020C4D59E0BB2C8E /* MenuPreferencesTests.swift */,
@@ -277,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				C16E41929D7247C57302BEC0 /* NoSleep.app */,
+				4FE82A1DB87C9C14E7BC0CE5 /* NoSleepMCP */,
 				9B5DBE4759EE539832ABDFFA /* NoSleepPowerHelper */,
 				70930E6460A401DF8463632D /* NoSleepScreenSaverAgent.app */,
 				8919053DB359884C90600406 /* NoSleepTests.xctest */,
@@ -318,6 +379,7 @@
 			);
 			dependencies = (
 				FA92B48A9CE4B6E897C07864 /* PBXTargetDependency */,
+				4BD07AABE77ECB461E815FED /* PBXTargetDependency */,
 				86F6B6B46B3EE986EBB48232 /* PBXTargetDependency */,
 			);
 			name = NoSleep;
@@ -342,6 +404,25 @@
 			);
 			productName = NoSleepPowerHelper;
 			productReference = 9B5DBE4759EE539832ABDFFA /* NoSleepPowerHelper */;
+			productType = "com.apple.product-type.tool";
+		};
+		91777AF2E885A0D1E4F8EFC7 /* NoSleepMCP */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCDF20609416D1357E19FCC0 /* Build configuration list for PBXNativeTarget "NoSleepMCP" */;
+			buildPhases = (
+				B654BF46E9E739091C08DF85 /* Sources */,
+				C7873E276BB1700761B6DF0E /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NoSleepMCP;
+			packageProductDependencies = (
+				26F1459115BABF533A83702A /* MCP */,
+			);
+			productName = NoSleepMCP;
+			productReference = 4FE82A1DB87C9C14E7BC0CE5 /* NoSleepMCP */;
 			productType = "com.apple.product-type.tool";
 		};
 		DB071D708428C35B694E7E57 /* NoSleepTests */ = {
@@ -379,6 +460,9 @@
 					825BF3B96E221E42A7F5D08D = {
 						ProvisioningStyle = Automatic;
 					};
+					91777AF2E885A0D1E4F8EFC7 = {
+						ProvisioningStyle = Automatic;
+					};
 					DB071D708428C35B694E7E57 = {
 						ProvisioningStyle = Automatic;
 					};
@@ -399,12 +483,16 @@
 			);
 			mainGroup = 96F618FA97579F547EDC5EF4;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				233BFA8FD84F61AEBB95B6D6 /* XCRemoteSwiftPackageReference "swift-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = FDAE10967FB217E58F59262E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				599FDB8C2CDB6DEDB51084A8 /* NoSleep */,
+				91777AF2E885A0D1E4F8EFC7 /* NoSleepMCP */,
 				825BF3B96E221E42A7F5D08D /* NoSleepPowerHelper */,
 				0019EB1FB2D449758456EC4C /* NoSleepScreenSaverAgent */,
 				DB071D708428C35B694E7E57 /* NoSleepTests */,
@@ -428,6 +516,7 @@
 				3DB08E6A05B34D6E3AE519EB /* Assets.xcassets in Resources */,
 				25D7FE4C4AADC871BF5188AE /* InfoPlist.strings in Resources */,
 				6A9623674EBEC0576CA9A1F1 /* Localizable.strings in Resources */,
+				B07D2CDA74BC511AC3C2816F /* ThirdPartyNotices.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,6 +534,7 @@
 				"$(BUILT_PRODUCTS_DIR)/NoSleepPowerHelper",
 				"$(SRCROOT)/Configuration/com.octoii.nosleep.PowerHelper.plist",
 				"$(SRCROOT)/Configuration/com.octoii.nosleep.ScreenSaverAgent.plist",
+				"$(BUILT_PRODUCTS_DIR)/NoSleepMCP",
 			);
 			name = "Embed Background Services";
 			outputFileListPaths = (
@@ -453,10 +543,11 @@
 				"$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/MacOS/NoSleepPowerHelper",
 				"$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Library/LaunchDaemons/com.octoii.nosleep.PowerHelper.plist",
 				"$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Library/LaunchAgents/com.octoii.nosleep.ScreenSaverAgent.plist",
+				"$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/MacOS/NoSleepMCP",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -eu\n/bin/mkdir -p \"$(dirname \"$SCRIPT_OUTPUT_FILE_0\")\" \"$(dirname \"$SCRIPT_OUTPUT_FILE_1\")\" \"$(dirname \"$SCRIPT_OUTPUT_FILE_2\")\"\n/usr/bin/install -m 755 \"$SCRIPT_INPUT_FILE_0\" \"$SCRIPT_OUTPUT_FILE_0\"\n/usr/bin/install -m 644 \"$SCRIPT_INPUT_FILE_1\" \"$SCRIPT_OUTPUT_FILE_1\"\n/usr/bin/install -m 644 \"$SCRIPT_INPUT_FILE_2\" \"$SCRIPT_OUTPUT_FILE_2\"\n";
+			shellScript = "set -eu\n/bin/mkdir -p \"$(dirname \"$SCRIPT_OUTPUT_FILE_0\")\" \"$(dirname \"$SCRIPT_OUTPUT_FILE_1\")\" \"$(dirname \"$SCRIPT_OUTPUT_FILE_2\")\"\n/usr/bin/install -m 755 \"$SCRIPT_INPUT_FILE_0\" \"$SCRIPT_OUTPUT_FILE_0\"\n/usr/bin/install -m 644 \"$SCRIPT_INPUT_FILE_1\" \"$SCRIPT_OUTPUT_FILE_1\"\n/usr/bin/install -m 644 \"$SCRIPT_INPUT_FILE_2\" \"$SCRIPT_OUTPUT_FILE_2\"\n/usr/bin/install -m 755 \"$SCRIPT_INPUT_FILE_3\" \"$SCRIPT_OUTPUT_FILE_3\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -465,6 +556,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				325FB5C88A4FAED4030F02FE /* AgentControl.swift in Sources */,
+				7AE7E82451339B9CE1AA234C /* AgentControlServer.swift in Sources */,
+				77E47247620C7E8B48093D68 /* AgentControlSocket.swift in Sources */,
+				18F519FAA3E09406D5254BA9 /* AgentControlTests.swift in Sources */,
 				4682B918F84A89DB6B76C2B0 /* BackgroundConnection.swift in Sources */,
 				CCDE365645137226C693AE6A /* BackgroundConnectionTests.swift in Sources */,
 				6A7EB744049E6626CB48B9F9 /* BundledServiceRegistration.swift in Sources */,
@@ -525,10 +620,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B654BF46E9E739091C08DF85 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93099778A0C755F5C6806357 /* AgentControl.swift in Sources */,
+				117CC378C28187A010F9C049 /* AgentControlSocket.swift in Sources */,
+				652E3B15053D14E6F65DD13A /* Mode.swift in Sources */,
+				A38AA2D59AD07A69D59B05D5 /* NoSleepMCP.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B8F9CD949C6C5B3FF614EB3E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3ADE08CEB3F0A5F8C520FB69 /* AgentControl.swift in Sources */,
+				EF5317EF6935ECBDB9880381 /* AgentControlServer.swift in Sources */,
+				DDEA2A53032950385955AC8B /* AgentControlSocket.swift in Sources */,
 				97F3B7D1C9EA3667B019A29B /* BackgroundConnection.swift in Sources */,
 				4C1B7CF169A65A12A349622B /* BundledServiceRegistration.swift in Sources */,
 				B2E11B0AD065CBC495CE37F6 /* Command.swift in Sources */,
@@ -553,6 +662,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4BD07AABE77ECB461E815FED /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 91777AF2E885A0D1E4F8EFC7 /* NoSleepMCP */;
+			targetProxy = 998B142374466F8D56711B13 /* PBXContainerItemProxy */;
+		};
 		86F6B6B46B3EE986EBB48232 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0019EB1FB2D449758456EC4C /* NoSleepScreenSaverAgent */;
@@ -632,7 +746,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -646,7 +760,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 0.1.9;
+				MARKETING_VERSION = 0.1.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -685,6 +799,38 @@
 					"@executable_path/../Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.octoii.nosleep.PowerHelper;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		A5B95B8F05760F6E17E45C83 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				INFOPLIST_FILE = "Configuration/NoSleepMCP-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.octoii.nosleep.MCP;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		BB855E2038D21BAF36976E84 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CREATE_INFOPLIST_SECTION_IN_BINARY = YES;
+				INFOPLIST_FILE = "Configuration/NoSleepMCP-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.octoii.nosleep.MCP;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 			};
@@ -758,7 +904,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -778,7 +924,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 26.0;
-				MARKETING_VERSION = 0.1.9;
+				MARKETING_VERSION = 0.1.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -895,6 +1041,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
+		DCDF20609416D1357E19FCC0 /* Build configuration list for PBXNativeTarget "NoSleepMCP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BB855E2038D21BAF36976E84 /* Debug */,
+				A5B95B8F05760F6E17E45C83 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 		E5B6F7355E94456B1BC23953 /* Build configuration list for PBXNativeTarget "NoSleepTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -905,6 +1060,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		233BFA8FD84F61AEBB95B6D6 /* XCRemoteSwiftPackageReference "swift-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/modelcontextprotocol/swift-sdk.git";
+			requirement = {
+				kind = exactVersion;
+				version = 0.12.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		26F1459115BABF533A83702A /* MCP */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 233BFA8FD84F61AEBB95B6D6 /* XCRemoteSwiftPackageReference "swift-sdk" */;
+			productName = MCP;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B8EC7F62A25BEB279BD80F4F /* Project object */;
 }

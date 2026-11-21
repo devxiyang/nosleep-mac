@@ -50,3 +50,5 @@
 "Could not request System Events access." = "시스템 이벤트 접근 권한을 요청할 수 없습니다.";
 "Retry Authorization" = "권한 다시 요청";
 "Open Automation Settings" = "자동화 설정 열기";
+"Allow Local Agent Control" = "로컬 에이전트 제어 허용";
+"Could not start local Agent control." = "로컬 에이전트 제어를 시작할 수 없습니다.";

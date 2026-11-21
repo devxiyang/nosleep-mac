@@ -50,3 +50,5 @@
 "Could not request System Events access." = "無法要求「系統事件」的存取權限。";
 "Retry Authorization" = "重試授權";
 "Open Automation Settings" = "打開自動化設定";
+"Allow Local Agent Control" = "允許本機 Agent 控制";
+"Could not start local Agent control." = "無法啟動本機 Agent 控制。";

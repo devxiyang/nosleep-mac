@@ -7,10 +7,14 @@ options:
 settings:
   base:
     SWIFT_VERSION: "6.0"
-    MARKETING_VERSION: "0.1.9"
-    CURRENT_PROJECT_VERSION: "10"
+    MARKETING_VERSION: "0.1.10"
+    CURRENT_PROJECT_VERSION: "11"
     CODE_SIGN_STYLE: Automatic
     ENABLE_HARDENED_RUNTIME: YES
+packages:
+  MCP:
+    url: https://github.com/modelcontextprotocol/swift-sdk.git
+    exactVersion: 0.12.1
 targets:
   NoSleep:
     type: application
@@ -18,7 +22,10 @@ targets:
     sources:
       - Sources/App
       - Sources/Shared
+      - Sources/AgentControl
       - Sources/ScreenSaverAutomation
+      - path: ThirdPartyNotices.txt
+        buildPhase: resources
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.octoii.nosleep
@@ -27,6 +34,9 @@ targets:
         ENABLE_USER_SCRIPT_SANDBOXING: YES
     dependencies:
       - target: NoSleepPowerHelper
+        link: false
+        embed: false
+      - target: NoSleepMCP
         link: false
         embed: false
       - target: NoSleepScreenSaverAgent
@@ -44,14 +54,17 @@ targets:
           /usr/bin/install -m 755 "$SCRIPT_INPUT_FILE_0" "$SCRIPT_OUTPUT_FILE_0"
           /usr/bin/install -m 644 "$SCRIPT_INPUT_FILE_1" "$SCRIPT_OUTPUT_FILE_1"
           /usr/bin/install -m 644 "$SCRIPT_INPUT_FILE_2" "$SCRIPT_OUTPUT_FILE_2"
+          /usr/bin/install -m 755 "$SCRIPT_INPUT_FILE_3" "$SCRIPT_OUTPUT_FILE_3"
         inputFiles:
           - "$(BUILT_PRODUCTS_DIR)/NoSleepPowerHelper"
           - "$(SRCROOT)/Configuration/com.octoii.nosleep.PowerHelper.plist"
           - "$(SRCROOT)/Configuration/com.octoii.nosleep.ScreenSaverAgent.plist"
+          - "$(BUILT_PRODUCTS_DIR)/NoSleepMCP"
         outputFiles:
           - "$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/MacOS/NoSleepPowerHelper"
           - "$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Library/LaunchDaemons/com.octoii.nosleep.PowerHelper.plist"
           - "$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/Library/LaunchAgents/com.octoii.nosleep.ScreenSaverAgent.plist"
+          - "$(TARGET_BUILD_DIR)/$(CONTENTS_FOLDER_PATH)/MacOS/NoSleepMCP"
   NoSleepPowerHelper:
     type: tool
     platform: macOS
@@ -63,6 +76,23 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.octoii.nosleep.PowerHelper
         INFOPLIST_FILE: Configuration/PowerHelper-Info.plist
+        CREATE_INFOPLIST_SECTION_IN_BINARY: YES
+        SKIP_INSTALL: YES
+  NoSleepMCP:
+    type: tool
+    platform: macOS
+    sources:
+      - Sources/NoSleepMCP
+      - Sources/AgentControl/AgentControl.swift
+      - Sources/AgentControl/AgentControlSocket.swift
+      - Sources/Shared/Mode.swift
+    dependencies:
+      - package: MCP
+        product: MCP
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.octoii.nosleep.MCP
+        INFOPLIST_FILE: Configuration/NoSleepMCP-Info.plist
         CREATE_INFOPLIST_SECTION_IN_BINARY: YES
         SKIP_INSTALL: YES
   NoSleepScreenSaverAgent:
@@ -83,6 +113,7 @@ targets:
     platform: macOS
     sources:
       - Sources/Core
+      - Sources/AgentControl
       - Sources/Shared/Command.swift
       - Sources/Shared/Mode.swift
       - Sources/Shared/PowerConnection.swift

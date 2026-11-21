@@ -57,6 +57,24 @@ struct MenuSettings: View {
 
             Divider()
 
+            Toggle(isOn: Binding(
+                get: { model.agentControlEnabled },
+                set: model.setAgentControlEnabled
+            )) {
+                Text("Allow Local Agent Control")
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .toggleStyle(.switch)
+
+            if model.agentControlEnabled && !model.agentControlAvailable {
+                Text("Could not start local Agent control.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Divider()
+
             HStack(spacing: 12) {
                 Text("Language")
                     .accessibilityHidden(true)

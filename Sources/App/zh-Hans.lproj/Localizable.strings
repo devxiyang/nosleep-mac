@@ -50,3 +50,5 @@
 "Could not request System Events access." = "无法请求「系统事件」权限。";
 "Retry Authorization" = "重试授权";
 "Open Automation Settings" = "打开自动化设置";
+"Allow Local Agent Control" = "允许本地 Agent 控制";
+"Could not start local Agent control." = "无法启动本地 Agent 控制。";

@@ -26,9 +26,17 @@ final class ExternalPowerMonitor {
     }
 
     static func isOnAC() -> Bool {
+        powerSource() == .ac
+    }
+
+    static func powerSource() -> PowerSource {
         guard let snapshot = IOPSCopyPowerSourcesInfo()?.takeRetainedValue(),
               let source = IOPSGetProvidingPowerSourceType(snapshot)?.takeUnretainedValue()
-        else { return false }
-        return source as String == kIOPSACPowerValue
+        else { return .unknown }
+        switch source as String {
+        case kIOPSACPowerValue: return .ac
+        case kIOPSBatteryPowerValue: return .battery
+        default: return .unknown
+        }
     }
 }

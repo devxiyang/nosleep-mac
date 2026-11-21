@@ -29,6 +29,31 @@ enum ScreenSaverAuthorizationState: Equatable {
     case finished(ScreenSaverAuthorizationResult)
 }
 
+enum IdleLockState: Equatable {
+    case inactive
+    case synchronized
+    case attention(IdleLockNotice)
+
+    init(notice: IdleLockNotice?) {
+        self = notice.map(Self.attention) ?? .inactive
+    }
+
+    var notice: IdleLockNotice? {
+        if case let .attention(notice) = self { return notice }
+        return nil
+    }
+
+    var agentStatus: AgentIdleLockStatus {
+        switch self {
+        case .inactive: .inactive
+        case .synchronized: .synchronized
+        case .attention(.restorePending): .restoring
+        case .attention(.screenSaverConflict): .screenSaverConflict
+        case .attention: .needsUserAction
+        }
+    }
+}
+
 enum IdleLockNotice: Equatable {
     case passwordRequired
     case passwordPolicyUnavailable

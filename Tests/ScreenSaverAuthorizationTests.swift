@@ -19,6 +19,7 @@ func waitingForScreenSaverConsentHidesTheAuthorizationButton(status: ScreenSaver
     let denied = IdleLockNotice.forScreenSaver(.authorizationRequired, authorization: authorization)
     #expect(denied == .automationDenied)
     #expect(denied?.action == .openAutomationSettings)
+    #expect(denied?.settingsAction == nil)
     #expect(IdleLockNotice.forScreenSaver(.permissionDenied, authorization: .notRequested) == .automationDenied)
     #expect(IdleLockNotice.forScreenSaver(.unavailable, authorization: authorization) == .automationDenied)
 }
@@ -35,5 +36,11 @@ func waitingForScreenSaverConsentHidesTheAuthorizationButton(status: ScreenSaver
     #expect(notice == .automationNotApplied)
     #expect(notice?.action == .openAutomationSettings)
     #expect(IdleLockNotice.forScreenSaver(.synchronized, authorization: authorization) == nil)
-    #expect(IdleLockNotice.forScreenSaver(.unavailable, authorization: authorization)?.action == .openScreenSaverSettings)
+    #expect(IdleLockNotice.forScreenSaver(.unavailable, authorization: authorization) == .screenSaverConflict)
+}
+
+@Test(arguments: [IdleLockNotice.screenSaverConflict, .restorePending])
+func screenSaverSettingsShortcutAppearsInSettings(notice: IdleLockNotice) {
+    #expect(notice.action == nil)
+    #expect(notice.settingsAction == .openScreenSaverSettings)
 }

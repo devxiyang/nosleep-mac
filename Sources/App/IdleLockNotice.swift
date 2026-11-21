@@ -94,10 +94,16 @@ enum IdleLockNotice: Equatable {
         case .setupScreenSaver: .authorizeHelper
         case .approveScreenSaver: .openBackgroundItems
         case .authorizeScreenSaver: .authorizeScreenSaver
-        case .awaitingAutomation: nil
+        case .awaitingAutomation, .screenSaverConflict, .restorePending: nil
         case .automationDenied, .automationNotApplied: .openAutomationSettings
         case .automationRequestFailed: .retryScreenSaverAuthorization
+        }
+    }
+
+    var settingsAction: MenuAction? {
+        switch self {
         case .screenSaverConflict, .restorePending: .openScreenSaverSettings
+        default: nil
         }
     }
 }

@@ -29,10 +29,22 @@ final class BackgroundConnection<Endpoint, Status: RawRepresentable & Sendable> 
 
     func call(_ send: (Endpoint, @escaping ModeReply) -> Void) async -> Status {
         guard let current = connection ?? connect() else { return unavailable }
-        let unavailable = self.unavailable
-        let result: Status = await withCheckedContinuation { continuation in
+        let result = await Self.sendRequest(on: current, unavailable: unavailable, send)
+        if result.rawValue == unavailable.rawValue && connection === current { close() }
+        return result
+    }
+
+    static func sendRequest(
+        on connection: NSXPCConnection,
+        unavailable: Status,
+        _ send: (Endpoint, @escaping ModeReply) -> Void
+    ) async -> Status {
+        await withCheckedContinuation { continuation in
             let reply = PendingReply(continuation)
-            let proxy = current.remoteObjectProxyWithErrorHandler { _ in reply.finish(unavailable) }
+            // Foundation can deliver transport failures on its connection queue.
+            let proxy = connection.remoteObjectProxyWithErrorHandler { @Sendable _ in
+                reply.finish(unavailable)
+            }
             guard let service = proxy as? Endpoint else {
                 reply.finish(unavailable)
                 return
@@ -40,8 +52,6 @@ final class BackgroundConnection<Endpoint, Status: RawRepresentable & Sendable> 
             send(service) { raw in reply.finish(Status(rawValue: raw) ?? unavailable) }
             DispatchQueue.global().asyncAfter(deadline: .now() + 12) { reply.finish(unavailable) }
         }
-        if result.rawValue == unavailable.rawValue && connection === current { close() }
-        return result
     }
 
     private func connect() -> NSXPCConnection? {

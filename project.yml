@@ -7,8 +7,8 @@ options:
 settings:
   base:
     SWIFT_VERSION: "6.0"
-    MARKETING_VERSION: "0.1.8"
-    CURRENT_PROJECT_VERSION: "9"
+    MARKETING_VERSION: "0.1.9"
+    CURRENT_PROJECT_VERSION: "10"
     CODE_SIGN_STYLE: Automatic
     ENABLE_HARDENED_RUNTIME: YES
 targets:
@@ -85,10 +85,12 @@ targets:
       - Sources/Core
       - Sources/Shared/Command.swift
       - Sources/Shared/Mode.swift
+      - Sources/Shared/PowerConnection.swift
       - Sources/Helper/PowerSystem.swift
       - Sources/ScreenSaverAgent/ScreenSaverPolicy.swift
       - Sources/ScreenSaverAutomation/ScreenSaverSettings.swift
       - Sources/App/BundledServiceRegistration.swift
+      - Sources/App/BackgroundConnection.swift
       - Sources/App/IdleLockNotice.swift
       - Sources/App/LoginItemRegistration.swift
       - Sources/App/MenuLanguage.swift

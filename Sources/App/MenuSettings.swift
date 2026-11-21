@@ -75,6 +75,22 @@ struct MenuSettings: View {
                 .fixedSize()
             }
             .font(.caption)
+
+            if let action = model.idleLockNotice?.settingsAction {
+                Divider()
+
+                Button {
+                    model.perform(action)
+                } label: {
+                    Label {
+                        Text(action.title)
+                    } icon: {
+                        Image(systemName: "arrow.up.right.square")
+                    }
+                }
+                .buttonStyle(.borderless)
+                .font(.caption)
+            }
         }
         .controlSize(.small)
         .task {
